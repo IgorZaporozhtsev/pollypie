@@ -1,0 +1,4 @@
+rootProject.name = 'pollypie'
+
+include 'kitchen', 'delivery'
+

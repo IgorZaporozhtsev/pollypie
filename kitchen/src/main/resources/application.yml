@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: kitchen
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kitchen
+    username: zeecoder
+    password: password
