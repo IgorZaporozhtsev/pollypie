@@ -1,6 +1,6 @@
 package com.zeecoder.kitchen.service;
 
-import com.zeecoder.kafka.TestComponent;
+import com.zeecoder.kafka.OrderEvent;
 import com.zeecoder.kitchen.domain.ClientOderDto;
 import com.zeecoder.kitchen.domain.ClientOrder;
 import com.zeecoder.kitchen.repository.OrderRepository;
@@ -16,14 +16,14 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final TestComponent testComponent;
+    private final OrderEvent orderEvent;
 
     public ClientOrder getOrder(UUID orderID) {
         return null;
     }
 
     public void saveOrder(ClientOderDto dto) {
-        testComponent.sendMessage(dto.name());
+        orderEvent.sendMessage(dto.name());
 
         var order = ClientOrder.builder()
                 .name(dto.name())
