@@ -1,7 +1,6 @@
 package com.zeecoder.kafka;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.protocol.types.Field;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,10 +14,12 @@ import java.util.Map;
 @Configuration
 public class KafkaProducerConfig {
 
+    @Value("${spring.kafka.bootstrap-servers}")
+    public String bootstrapServer;
 
     public Map<String, Object> producerConfig(){
         return Map.of(
-                ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092",
+                ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,bootstrapServer,
                 ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class,
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class
         );

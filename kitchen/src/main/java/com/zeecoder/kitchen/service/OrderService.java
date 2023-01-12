@@ -18,20 +18,35 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderEvent orderEvent;
 
-    public ClientOrder getOrder(UUID orderID) {
-        return null;
+    public ClientOrder get(UUID orderID) {
+        return orderRepository.findById(orderID).orElseThrow(IllegalArgumentException::new);
     }
 
-    public void saveOrder(ClientOderDto dto) {
+    public ClientOrder save(ClientOderDto dto) {
         orderEvent.sendMessage(dto.name());
 
         var order = ClientOrder.builder()
                 .name(dto.name())
-                .status("PENDING")
+                .status("CREATED_PENDING")
                 .createsAt(LocalDateTime.now()
                         .truncatedTo(ChronoUnit.SECONDS))
                 .build();
 
-        orderRepository.save(order);
+        return orderRepository.save(order);
     }
+
+    public void delete(UUID orderID){
+        orderRepository.deleteById(orderID);
+    }
+
+    public ClientOrder update(ClientOrder order){
+        ClientOrder derived = orderRepository.getReferenceById(order.getOrderID());
+        derived.setOrderID(order.getOrderID());
+        derived.setName(order.getName());
+        derived.setCreatesAt(order.getCreatesAt());
+        derived.setClosedAt(order.getClosedAt());
+        return orderRepository.save(derived);
+    }
+
+
 }

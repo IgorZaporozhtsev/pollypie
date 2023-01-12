@@ -4,7 +4,6 @@ import com.zeecoder.kitchen.domain.ClientOderDto;
 import com.zeecoder.kitchen.domain.ClientOrder;
 import com.zeecoder.kitchen.service.OrderService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.UUID;
 
 @RestController
@@ -20,12 +19,12 @@ public class OrderController {
 
     @GetMapping(path = "{orderID}")
     public ClientOrder getOrder(@PathVariable("orderID") UUID orderID){
-        return orderService.getOrder(orderID);
+        return orderService.get(orderID);
     }
 
 
     @PostMapping
-    public void saveOrder(@RequestBody ClientOderDto dto){
-        orderService.saveOrder(dto);
+    public ClientOrder saveOrder(@RequestBody ClientOderDto dto){
+        return orderService.save(dto);
     }
 }
