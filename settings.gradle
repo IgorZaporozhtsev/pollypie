@@ -1,4 +1,5 @@
 rootProject.name = 'pollypie'
 
 include 'kitchen', 'delivery'
+include 'kafka'
 

@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+
+
+dependencies {
+    implementation project(path: ':delivery')
+    implementation 'org.springframework.kafka:spring-kafka:3.0.1'
+
+}
+
