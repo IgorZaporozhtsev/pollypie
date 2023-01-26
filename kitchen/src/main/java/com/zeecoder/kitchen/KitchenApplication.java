@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(
         scanBasePackages = {
                 "com.zeecoder.kitchen",
-                "com.zeecoder.kafka",
-                "com.zeecoder.domains"
+                "com.zeecoder.kafka"
         }
 )
 public class KitchenApplication {

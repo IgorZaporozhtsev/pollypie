@@ -1,0 +1,9 @@
+group 'org.zeecoder.recipient'
+version 'unspecified'
+
+
+dependencies {
+    implementation project(path: ':kafka')
+    implementation project(path: ':domains')
+}
+
