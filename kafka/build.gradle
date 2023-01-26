@@ -1,11 +1,9 @@
 plugins {
     id 'java'
+    id 'java-library'
 }
 
-
 dependencies {
-    implementation project(path: ':delivery')
-    implementation 'org.springframework.kafka:spring-kafka:3.0.1'
-
+    api 'org.springframework.kafka:spring-kafka:3.0.1'
 }
 
