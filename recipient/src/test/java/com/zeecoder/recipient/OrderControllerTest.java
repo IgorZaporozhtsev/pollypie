@@ -32,7 +32,7 @@ public class OrderControllerTest {
     void setUp() {
         order = ClientOrder.builder()
                 .orderID(UUID.randomUUID())
-                .name("first oder")
+                .description("first oder")
                 .build();
 
     }
