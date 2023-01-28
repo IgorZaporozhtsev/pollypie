@@ -1,0 +1,7 @@
+group 'org.zeecoder.domains'
+version 'unspecified'
+
+dependencies {
+//    implementation 'org.javamoney:javamoney-tck:1.1'
+//    implementation 'org.jadira.usertype:usertype.core:6.0.1.GA'
+}

@@ -1,12 +1,9 @@
-plugins {
-    id 'java'
-}
-
-group 'org.zeecoder'
-version '1.0-SNAPSHOT'
+group 'org.zeecoder.recipient'
+version 'unspecified'
 
 
 dependencies {
     implementation project(path: ':kafka')
     implementation project(path: ':domains')
 }
+

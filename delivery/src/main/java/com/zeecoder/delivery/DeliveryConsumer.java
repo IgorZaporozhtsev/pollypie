@@ -1,13 +1,12 @@
-package com.zeecoder.kafka;
+package com.zeecoder.delivery;
 
-import com.zeecoder.delivery.DeliveryService;
 import lombok.AllArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class DeliveryListeners {
+public class DeliveryConsumer {
 
     public final DeliveryService deliveryService;
 
@@ -16,7 +15,7 @@ public class DeliveryListeners {
             groupId = "groupId"
     )
     void listener(String data) {
-        deliveryService.process(data);
-        System.out.println("Listener received data: 🎉🎉🎉" + data);
+        deliveryService.apply(data);
+        System.out.println("Kafka listener received data: 🎉🎉🎉" + data);
     }
 }

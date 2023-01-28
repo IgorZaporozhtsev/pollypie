@@ -8,7 +8,14 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class DeliveryService {
 
-    public void process(String data) {
-        //update order with status
+    public void apply(String data) {
+
+
     }
+
+    public void makeDelivery() {
+
+    }
+
+
 }
