@@ -1,0 +1,20 @@
+package com.zeecoder.domains;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.UUID;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Ingredients {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    UUID itemID;
+    @Column(name = "name")
+    String name;
+}
