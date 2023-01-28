@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domains/IdeaProjects.pollypie.domains.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domains/IdeaProjects.pollypie.domains.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka/IdeaProjects.pollypie.kafka.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka/IdeaProjects.pollypie.kafka.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/recipient/org.zeecoder.recipient.pollypie.recipient.main.iml" filepath="$PROJECT_DIR$/.idea/modules/recipient/org.zeecoder.recipient.pollypie.recipient.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/domains/pollypie.domains.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domains/pollypie.domains.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka/pollypie.kafka.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka/pollypie.kafka.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kitchen/pollypie.kitchen.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kitchen/pollypie.kitchen.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/recipient/pollypie.recipient.main.iml" filepath="$PROJECT_DIR$/.idea/modules/recipient/pollypie.recipient.main.iml" />
     </modules>
   </component>
