@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/client-order")
 public class OrderController {
 
-    private final OrderRepository repo;
+    private final OrderService service;
 
     @PostMapping
     public void saveOrder(@RequestBody ClientOrder order) {
-        repo.save(order);
+        service.save(order);
     }
 }

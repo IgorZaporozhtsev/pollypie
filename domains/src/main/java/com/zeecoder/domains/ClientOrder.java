@@ -11,6 +11,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "client-order")
@@ -24,13 +25,5 @@ public class ClientOrder {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     List<Item> items = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "ClientOrder{" +
-                "orderID=" + orderID +
-                ", name='" + name + '\'' +
-                ", items=" + items +
-                '}';
-    }
 }
 

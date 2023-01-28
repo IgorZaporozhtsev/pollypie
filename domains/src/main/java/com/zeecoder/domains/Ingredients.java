@@ -8,6 +8,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,4 +18,6 @@ public class Ingredients {
     UUID itemID;
     @Column(name = "name")
     String name;
+
+
 }
