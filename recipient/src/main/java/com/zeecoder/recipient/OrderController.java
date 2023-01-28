@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/client-order")
 public class OrderController {
 
-    private final OrderRepo repo;
+    private final OrderRepository repo;
 
     @PostMapping
     public void saveOrder(@RequestBody ClientOrder order) {
