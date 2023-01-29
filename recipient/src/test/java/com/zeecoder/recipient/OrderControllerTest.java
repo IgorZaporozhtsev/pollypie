@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,13 +33,29 @@ public class OrderControllerTest {
     void setUp() {
         order = ClientOrder.builder()
                 .orderID(UUID.randomUUID())
-                .name("first oder")
+                .description("first oder")
                 .build();
 
     }
 
     @Test
-    public void shouldReturnDefaultMessage() throws Exception {
+    public void shouldReturnStatusOkForAll() throws Exception {
+        this.mockMvc.perform(get("/api/v1/client-order")
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldReturnStatusOk() throws Exception {
+        var orderID = UUID.randomUUID();
+
+        this.mockMvc.perform(get("/api/v1/client-order/{orderID}", orderID)
+                        .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldReturnStatusCreated() throws Exception {
         doNothing().when(mockService).save(order);
 
         this.mockMvc.perform(
@@ -46,7 +63,7 @@ public class OrderControllerTest {
                                 .contentType(APPLICATION_JSON)
                                 .content(asJsonString(order)))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
         //.andExpect(content().string(containsString("Hello, World")));
     }
 

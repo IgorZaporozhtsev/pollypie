@@ -18,9 +18,13 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID itemID;
+    @Column(name = "name")
     String name;
 
+    @Column(name = "amount")
+    Integer amount;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Ingredients> ingredients = new ArrayList<>();
+    List<Addition> adds = new ArrayList<>();
 
 }

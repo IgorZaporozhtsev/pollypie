@@ -12,7 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Ingredients {
+public class Addition {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID itemID;

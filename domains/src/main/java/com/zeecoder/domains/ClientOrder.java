@@ -20,7 +20,7 @@ public class ClientOrder {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID orderID;
 
-    String name;
+    String description;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     List<Item> items = new ArrayList<>();
