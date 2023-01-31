@@ -1,6 +1,7 @@
 package com.zeecoder.recipient;
 
 import com.zeecoder.domains.ClientOrder;
+import com.zeecoder.domains.Item;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +32,17 @@ public class OrderController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public void saveOrder(@RequestBody ClientOrder order) {
         service.save(order);
+    }
+
+    @PostMapping("{orderID}")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public void newItem(@RequestBody Item item, @PathVariable("orderID") UUID orderID) {
+        service.addNewItemToOrder(item, orderID);
+    }
+
+    @DeleteMapping("{orderID}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void delete(@PathVariable("orderID") UUID orderID) {
+        service.delete(orderID);
     }
 }
