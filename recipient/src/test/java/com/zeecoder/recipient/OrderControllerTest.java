@@ -2,6 +2,7 @@ package com.zeecoder.recipient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zeecoder.domains.ClientOrder;
+import com.zeecoder.domains.Item;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static org.mockito.Mockito.doNothing;
@@ -31,9 +33,17 @@ public class OrderControllerTest {
 
     @BeforeEach
     void setUp() {
+        ArrayList<Item> items = new ArrayList<>();
+        Item pizza = Item.builder()
+                .itemID(UUID.randomUUID())
+                .name("Pizza")
+                .adds(new ArrayList<>()).build();
+        items.add(pizza);
+
         order = ClientOrder.builder()
                 .orderID(UUID.randomUUID())
                 .description("first oder")
+                .items(items)
                 .build();
 
     }
