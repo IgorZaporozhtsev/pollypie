@@ -2,6 +2,7 @@ package com.zeecoder.recipient;
 
 import com.zeecoder.domains.ClientOrder;
 import com.zeecoder.domains.Item;
+import com.zeecoder.recipient.dto.SimpleOrder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,13 @@ import java.util.UUID;
 public class OrderController {
 
     private final OrderService service;
+    private final SimpleOrderDTOMapper simpleOrderDTOMapper;
 
     @GetMapping(value = "{orderID}")
     @ResponseStatus(code = HttpStatus.OK)
     public ClientOrder get(@PathVariable("orderID") UUID orderID) {
-        return service.get(orderID);
+        return service.get(orderID)
+                .orElseThrow(() -> new IllegalArgumentException("There is no"));
     }
 
     @GetMapping
@@ -45,4 +48,15 @@ public class OrderController {
     public void delete(@PathVariable("orderID") UUID orderID) {
         service.delete(orderID);
     }
+
+    @GetMapping(value = "/dto/{orderID}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public SimpleOrder getOrderDTO(@PathVariable("orderID") UUID orderID) {
+
+
+        return service.get(orderID)
+                .map(simpleOrderDTOMapper::apply)
+                .orElseThrow();
+    }
 }
+
