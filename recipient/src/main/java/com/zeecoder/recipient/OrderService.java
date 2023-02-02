@@ -36,6 +36,7 @@ public class OrderService {
     }
 
     public void addNewItemToOrder(Item item, UUID orderID) {
+        //TODO add if order has status OPEN
         ClientOrder referenceById = orderRepository.getReferenceById(orderID);
         item.setClientOrder(referenceById);
         itemRepository.save(item);

@@ -32,6 +32,9 @@ public class ClientOrder implements Serializable {
 
     String description;
 
+    @Enumerated(value = EnumType.STRING)
+    OrderState state;
+
     @OneToMany(
             mappedBy = "clientOrder",
             cascade = CascadeType.ALL,
