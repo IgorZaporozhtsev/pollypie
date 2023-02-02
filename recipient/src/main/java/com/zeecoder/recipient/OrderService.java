@@ -2,6 +2,7 @@ package com.zeecoder.recipient;
 
 import com.zeecoder.domains.ClientOrder;
 import com.zeecoder.domains.Item;
+import com.zeecoder.domains.OrderState;
 import com.zeecoder.kafka.OrderEvent;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,10 +38,12 @@ public class OrderService {
 
     public void addNewItemToOrder(Item item, UUID orderID) {
         //TODO add if order has status OPEN
-        ClientOrder referenceById = orderRepository.getReferenceById(orderID);
-        item.setClientOrder(referenceById);
-        itemRepository.save(item);
-        event.sendMessage(String.valueOf(referenceById));
+        ClientOrder derivedOrder = orderRepository.getReferenceById(orderID);
+        if (derivedOrder.getState().equals(OrderState.OPEN)) {
+            item.setClientOrder(derivedOrder);
+            itemRepository.save(item);
+            event.sendMessage(String.valueOf(derivedOrder));
+        }
     }
 
 }

@@ -22,7 +22,7 @@ public class OrderController {
     @ResponseStatus(code = HttpStatus.OK)
     public ClientOrder get(@PathVariable("orderID") UUID orderID) {
         return service.get(orderID)
-                .orElseThrow(() -> new IllegalArgumentException("There is no"));
+                .orElseThrow(() -> new IllegalArgumentException("There is no Order with: " + orderID));
     }
 
     @GetMapping
