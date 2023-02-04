@@ -1,9 +1,11 @@
-group 'org.zeecoder.recipient'
-version 'unspecified'
-
+plugins {
+    id 'java'
+    id 'com.google.cloud.tools.jib' version '3.3.1'
+}
 
 dependencies {
     implementation project(path: ':kafka')
     implementation project(path: ':domains')
 }
 
+jib.to.image = "booratina/${project.name}:${version}"
