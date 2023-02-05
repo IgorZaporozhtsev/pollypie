@@ -1,10 +1,9 @@
 plugins {
-
+    id 'java'
+    id 'com.google.cloud.tools.jib'
 }
 
-group 'org.zeecoder'
-version '1.0-SNAPSHOT'
-
+jib.to.image = "booratina/${project.name}:${version}"
 
 dependencies {
     implementation project(path: ':kafka')
