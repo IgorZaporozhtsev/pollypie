@@ -1,8 +1,6 @@
 package com.zeecoder.recipient;
 
-import com.zeecoder.domains.ClientOrder;
-import com.zeecoder.domains.Item;
-import com.zeecoder.domains.OrderState;
+import com.zeecoder.domains.*;
 import com.zeecoder.kafka.OrderEvent;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +11,7 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class OrderService {
+public class RecipientService {
 
     private final OrderRepository orderRepository;
     private final ItemRepository itemRepository;

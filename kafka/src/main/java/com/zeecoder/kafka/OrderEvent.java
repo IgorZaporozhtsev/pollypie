@@ -12,6 +12,6 @@ public class OrderEvent {
     public final KafkaTemplate<String, String> kafkaTemplate;
 
     public void sendMessage(String orderName){
-        kafkaTemplate.send("delivery", "your order is "+ orderName);
+        kafkaTemplate.send("kitchen", "your order is " + orderName);
     }
 }

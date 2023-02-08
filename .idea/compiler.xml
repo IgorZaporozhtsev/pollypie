@@ -11,7 +11,7 @@
         <module name="pollypie.main" />
         <module name="pollypie.delivery.main" />
         <module name="pollypie.kitchen.main" />
-        <module name="com.zeecoder.pollypie.recipient.main" />
+        <module name="IdeaProjects.pollypie.recipient.main" />
         <module name="IdeaProjects.pollypie.domains.main" />
       </profile>
     </annotationProcessing>

@@ -16,6 +16,6 @@ public class OrderConsumer {
     )
     void listener(String data) {
         kitchenService.apply(data);
-        System.out.println("Kafka listener received data: 🎉🎉🎉" + data);
+        System.out.println("Kitchen service received data from recipient: 🎉🎉🎉" + data);
     }
 }

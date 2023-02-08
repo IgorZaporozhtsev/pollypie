@@ -13,9 +13,9 @@ import java.util.UUID;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/client-order")
-public class OrderController {
+public class RecipientController {
 
-    private final OrderService service;
+    private final RecipientService service;
     private final SimpleOrderDTOMapper simpleOrderDTOMapper;
 
     @GetMapping(value = "{orderID}")

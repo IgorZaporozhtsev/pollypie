@@ -29,7 +29,7 @@ public class OrderControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private OrderService mockService;
+    private RecipientService mockService;
 
     private ClientOrder order;
     @MockBean

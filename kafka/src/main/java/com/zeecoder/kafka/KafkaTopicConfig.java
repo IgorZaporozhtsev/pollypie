@@ -9,8 +9,14 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfig {
 
     @Bean
-    public NewTopic deliveryTopic(){
+    public NewTopic deliveryTopic() {
         return TopicBuilder.name("delivery")
+                .build();
+    }
+
+    @Bean
+    public NewTopic kitchenTopic() {
+        return TopicBuilder.name("kitchen")
                 .build();
     }
 }
