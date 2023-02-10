@@ -3,23 +3,26 @@ package com.zeecoder.recipient;
 import com.zeecoder.domains.*;
 import com.zeecoder.kafka.OrderEvent;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class RecipientService {
 
     private final OrderRepository orderRepository;
     private final ItemRepository itemRepository;
-    private final OrderEvent event;
+    private final OrderEvent<ClientOrder> event;
+
 
     public void save(ClientOrder order) {
-        ClientOrder savedOrder = orderRepository.save(order);
-        event.sendMessage(String.valueOf(savedOrder));
+        event.sendMessage(order);
+        log.info("Data from kafka is sent: 🎉🎉🎉" + order);
     }
 
     public Optional<ClientOrder> get(UUID orderID) {
@@ -40,7 +43,7 @@ public class RecipientService {
         if (derivedOrder.getState().equals(OrderState.OPEN)) {
             item.setClientOrder(derivedOrder);
             itemRepository.save(item);
-            event.sendMessage(String.valueOf(derivedOrder));
+            event.sendMessage(derivedOrder);
         }
     }
 

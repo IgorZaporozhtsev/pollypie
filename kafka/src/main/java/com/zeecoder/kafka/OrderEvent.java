@@ -6,12 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class OrderEvent {
+public class OrderEvent<T> {
 
+    public final KafkaTemplate<String, T> kafkaTemplate;
 
-    public final KafkaTemplate<String, String> kafkaTemplate;
-
-    public void sendMessage(String orderName){
-        kafkaTemplate.send("kitchen", "your order is " + orderName);
+    public void sendMessage(T order) {
+        kafkaTemplate.send("kitchen", order);
     }
 }
