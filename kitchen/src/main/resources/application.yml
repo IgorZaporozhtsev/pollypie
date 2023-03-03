@@ -1,7 +1,14 @@
 spring:
   application:
     name: kitchen
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kitchen
+    username: zeecoder
+    password: password
   kafka:
     bootstrap-servers: localhost:9092
 server:
   port: 8081
+logging:
+  level:
+    root: info

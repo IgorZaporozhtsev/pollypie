@@ -1,12 +1,13 @@
 plugins {
     id 'java'
     id 'com.google.cloud.tools.jib'
+    id 'java-library'
 }
 
 jib.to.image = "booratina/${project.name}:${version}"
 
 dependencies {
-    implementation project(path: ':kafka')
+    api project(path: ':kafka')
     implementation project(path: ':domains')
 }
 

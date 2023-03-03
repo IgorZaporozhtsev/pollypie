@@ -38,7 +38,8 @@ public class ClientOrder implements Serializable {
     @OneToMany(
             mappedBy = "clientOrder",
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
     )
     List<Item> items = new ArrayList<>();
 

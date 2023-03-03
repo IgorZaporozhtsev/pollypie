@@ -13,9 +13,9 @@ import java.util.UUID;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/v1/client-order")
-public class OrderController {
+public class RecipientController {
 
-    private final OrderService service;
+    private final RecipientService service;
     private final SimpleOrderDTOMapper simpleOrderDTOMapper;
 
     @GetMapping(value = "{orderID}")
@@ -33,12 +33,14 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
+    //TODO return id
     public void saveOrder(@RequestBody ClientOrder order) {
         service.save(order);
     }
 
     @PostMapping("{orderID}")
     @ResponseStatus(code = HttpStatus.CREATED)
+    //TODO return id
     public void newItem(@RequestBody Item item, @PathVariable("orderID") UUID orderID) {
         service.addNewItemToOrder(item, orderID);
     }

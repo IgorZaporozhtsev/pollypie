@@ -7,5 +7,6 @@ jib.to.image = "booratina/${project.name}:${version}"
 
 dependencies {
     implementation project(path: ':kafka')
+    implementation project(path: ':domains')
 }
 

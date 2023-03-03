@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
@@ -11,7 +12,7 @@
         <module name="pollypie.main" />
         <module name="pollypie.delivery.main" />
         <module name="pollypie.kitchen.main" />
-        <module name="com.zeecoder.pollypie.recipient.main" />
+        <module name="IdeaProjects.pollypie.recipient.main" />
         <module name="IdeaProjects.pollypie.domains.main" />
       </profile>
     </annotationProcessing>
