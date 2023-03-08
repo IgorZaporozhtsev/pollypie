@@ -4,9 +4,10 @@ import com.zeecoder.domains.*;
 import com.zeecoder.kafka.OrderEvent;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,8 +30,8 @@ public class RecipientService {
         return orderRepository.findById(orderID);
     }
 
-    public List<ClientOrder> getAll() {
-        return orderRepository.findAll();
+    public Page<ClientOrder> getOrders(Pageable page) {
+        return orderRepository.findAll(page);
     }
 
     public void delete(UUID orderID) {
