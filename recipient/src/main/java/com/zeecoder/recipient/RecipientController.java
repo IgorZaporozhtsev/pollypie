@@ -4,10 +4,11 @@ import com.zeecoder.domains.ClientOrder;
 import com.zeecoder.domains.Item;
 import com.zeecoder.recipient.dto.SimpleOrder;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -27,8 +28,8 @@ public class RecipientController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<ClientOrder> getAll() {
-        return service.getAll();
+    public Page<ClientOrder> getAll(Pageable page) {
+        return service.getOrders(page);
     }
 
     @PostMapping
