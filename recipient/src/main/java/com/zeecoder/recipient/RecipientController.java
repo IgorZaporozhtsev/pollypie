@@ -3,6 +3,8 @@ package com.zeecoder.recipient;
 import com.zeecoder.domains.ClientOrder;
 import com.zeecoder.domains.Item;
 import com.zeecoder.recipient.dto.SimpleOrder;
+import com.zeecoder.recipient.exceptions.ApiRecipientException;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +26,7 @@ public class RecipientController {
     @ResponseStatus(code = HttpStatus.OK)
     public ClientOrder get(@PathVariable("orderID") UUID orderID) {
         return service.get(orderID)
-                .orElseThrow(() -> new IllegalArgumentException("There is no Order with: " + orderID));
+                .orElseThrow(() -> new ApiRecipientException(orderID.toString(), "GEEX001"));
     }
 
     @GetMapping
@@ -37,7 +39,7 @@ public class RecipientController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     //TODO return id
-    public void saveOrder(@RequestBody ClientOrder order) {
+    public void saveOrder(@Valid @RequestBody ClientOrder order) {
         service.save(order);
     }
 
@@ -49,7 +51,7 @@ public class RecipientController {
     }
 
     @DeleteMapping("{orderID}")
-    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("orderID") UUID orderID) {
         service.delete(orderID);
     }
