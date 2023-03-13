@@ -26,11 +26,10 @@ public class ValidationExceptionHandler {
         var fields = exception.getBindingResult().getFieldErrors();
 
         var causeFields = fields.stream()
-                .map(FieldError::getField)
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
 
         var exceptionInfo = new ApiException(
-                String.join(", ", status.message, causeFields),
+                causeFields,
                 status.httpStatus,
                 status.exceptionCode,
                 status.timestamp);
