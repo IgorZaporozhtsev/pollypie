@@ -2,6 +2,7 @@ package com.zeecoder.domains;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -44,6 +45,10 @@ public class ClientOrder implements Serializable {
             fetch = FetchType.EAGER
     )
     List<Item> items = new ArrayList<>();
+
+    @Embedded
+    @Valid
+    ContactDetails contactDetails;
 
     @JsonManagedReference
     public List<Item> getItems() {
