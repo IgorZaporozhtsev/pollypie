@@ -33,8 +33,8 @@ public class Item implements Serializable {
     @Column(name = "amount")
     Integer amount;
 
-    @ManyToOne(cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    //TODO change to FetchType.LAZY
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_clientOrder")
     ClientOrder clientOrder;
 
