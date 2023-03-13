@@ -2,6 +2,8 @@ package com.zeecoder.domains;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serial;
@@ -30,6 +32,7 @@ public class ClientOrder implements Serializable {
     @Column(name = "order_id")
     UUID orderID;
 
+    @NotBlank
     String description;
 
     @Enumerated(value = EnumType.STRING)
@@ -42,6 +45,10 @@ public class ClientOrder implements Serializable {
             fetch = FetchType.EAGER
     )
     List<Item> items = new ArrayList<>();
+
+    @Embedded
+    @Valid
+    ContactDetails contactDetails;
 
     @JsonManagedReference
     public List<Item> getItems() {
