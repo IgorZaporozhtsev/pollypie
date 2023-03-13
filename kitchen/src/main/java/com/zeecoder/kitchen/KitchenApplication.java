@@ -1,19 +1,9 @@
 package com.zeecoder.kitchen;
 
-import com.zeecoder.domains.Addition;
-import com.zeecoder.domains.ClientOrder;
-import com.zeecoder.domains.Item;
-import com.zeecoder.domains.OrderState;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.IntStream;
 
 @SpringBootApplication(
         scanBasePackages = {
@@ -28,7 +18,7 @@ public class KitchenApplication {
         SpringApplication.run(KitchenApplication.class, args);
     }
 
-    @Bean
+  /*  @Bean
     CommandLineRunner run(KitchenService service) {
         return args -> IntStream.rangeClosed(1, 100).forEach(i -> {
 
@@ -57,5 +47,5 @@ public class KitchenApplication {
             service.saveOrder(order);
 
         });
-    }
+    }*/
 }
