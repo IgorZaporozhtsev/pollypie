@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 
 @RestControllerAdvice
@@ -20,7 +21,7 @@ public class ApiExceptionHandler {
                 .orElseThrow();
 
         var exceptionInfo =
-                new ApiException(String.join(" ", status.message, exception.message),
+                new ApiException(Map.of(exception.message, status.message),
                         status.httpStatus, status.exceptionCode, status.timestamp);
 
         return new ResponseEntity<>(exceptionInfo, status.httpStatus);
