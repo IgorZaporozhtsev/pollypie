@@ -42,7 +42,7 @@ public class ClientOrder implements Serializable {
             mappedBy = "clientOrder",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
     List<Item> items = new ArrayList<>();
 
