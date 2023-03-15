@@ -12,8 +12,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
                 "com.zeecoder.recipient"
         }
 )
-@EntityScan("com.zeecoder.domains")
-@EnableJpaRepositories("com.zeecoder.domains")
+
+@EntityScan(basePackages = {"com.zeecoder.domains", "com.zeecoder.recipient"})
+@EnableJpaRepositories(basePackages = {"com.zeecoder.domains", "com.zeecoder.recipient"})
 public class RecipientApplication {
     public static void main(String[] args) {
         SpringApplication.run(RecipientApplication.class, args);
