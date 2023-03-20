@@ -24,11 +24,16 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        String[] swagger = {"/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**"};
+        String[] registration = {"/api/v1/auth/**"};
+
         http
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**")
+                .requestMatchers(registration)
+                .permitAll()
+                .requestMatchers(swagger)
                 .permitAll()
                 .anyRequest()
                 .authenticated()
