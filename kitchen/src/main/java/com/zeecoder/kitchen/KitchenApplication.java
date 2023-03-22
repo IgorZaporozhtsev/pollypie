@@ -1,9 +1,19 @@
 package com.zeecoder.kitchen;
 
+import com.zeecoder.common.Addition;
+import com.zeecoder.common.ClientOrder;
+import com.zeecoder.common.Item;
+import com.zeecoder.common.OrderState;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.IntStream;
 
 @SpringBootApplication(
         scanBasePackages = {
@@ -11,14 +21,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
                 "com.zeecoder.kafka"
         }
 )
-@EntityScan("com.zeecoder.domains")
-@EnableJpaRepositories("com.zeecoder.domains")
+@EntityScan("com.zeecoder.common")
+@EnableJpaRepositories("com.zeecoder.common")
 public class KitchenApplication {
     public static void main(String[] args) {
         SpringApplication.run(KitchenApplication.class, args);
     }
 
-  /*  @Bean
+    @Bean
     CommandLineRunner run(KitchenService service) {
         return args -> IntStream.rangeClosed(1, 100).forEach(i -> {
 
@@ -47,5 +57,5 @@ public class KitchenApplication {
             service.saveOrder(order);
 
         });
-    }*/
+    }
 }

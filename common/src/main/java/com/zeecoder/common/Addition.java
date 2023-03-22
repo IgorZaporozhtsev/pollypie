@@ -1,4 +1,4 @@
-package com.zeecoder.domains;
+package com.zeecoder.common;
 
 import jakarta.persistence.*;
 import lombok.*;

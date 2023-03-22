@@ -1,4 +1,4 @@
-package com.zeecoder.recipient.exceptions;
+package com.zeecoder.common.exceptions;
 
 import org.springframework.http.HttpStatus;
 
