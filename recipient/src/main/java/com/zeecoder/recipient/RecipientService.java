@@ -50,6 +50,7 @@ public class RecipientService {
         }
     }
 
+    //TODO need create Entity for Kitchen and check if Sous-chef available and assign Order to him
     public void checkKitchenStatus(UUID orderID) {
         String state = kitchenClient.get(orderID);
         log.info(String.join(", ", "received OrderState", state));
