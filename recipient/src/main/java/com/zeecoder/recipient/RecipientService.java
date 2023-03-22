@@ -1,7 +1,8 @@
 package com.zeecoder.recipient;
 
-import com.zeecoder.domains.*;
+import com.zeecoder.common.*;
 import com.zeecoder.kafka.OrderEvent;
+import com.zeecoder.recipient.client.KitchenClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ public class RecipientService {
     private final OrderRepository orderRepository;
     private final ItemRepository itemRepository;
     private final OrderEvent<ClientOrder> event;
+    private final KitchenClient kitchenClient;
 
 
     public void save(ClientOrder order) {
@@ -46,6 +48,12 @@ public class RecipientService {
             itemRepository.save(item);
             event.sendMessage(derivedOrder);
         }
+    }
+
+    //TODO need create Entity for Kitchen and check if Sous-chef available and assign Order to him
+    public void checkKitchenStatus(UUID orderID) {
+        String state = kitchenClient.get(orderID);
+        log.info(String.join(", ", "received OrderState", state));
     }
 
 }

@@ -1,9 +1,9 @@
 package com.zeecoder.recipient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zeecoder.domains.ClientOrder;
-import com.zeecoder.domains.Item;
-import com.zeecoder.domains.OrderState;
+import com.zeecoder.common.ClientOrder;
+import com.zeecoder.common.Item;
+import com.zeecoder.common.OrderState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

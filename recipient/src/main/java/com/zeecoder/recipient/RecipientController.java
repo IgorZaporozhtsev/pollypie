@@ -1,9 +1,9 @@
 package com.zeecoder.recipient;
 
-import com.zeecoder.domains.ClientOrder;
-import com.zeecoder.domains.Item;
+import com.zeecoder.common.ClientOrder;
+import com.zeecoder.common.Item;
+import com.zeecoder.common.exceptions.ApiRequestException;
 import com.zeecoder.recipient.dto.SimpleOrder;
-import com.zeecoder.recipient.exceptions.ApiRecipientException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,8 +25,9 @@ public class RecipientController {
     @GetMapping(value = "{orderID}")
     @ResponseStatus(code = HttpStatus.OK)
     public ClientOrder get(@PathVariable("orderID") UUID orderID) {
+        service.checkKitchenStatus(orderID);
         return service.get(orderID)
-                .orElseThrow(() -> new ApiRecipientException(orderID.toString(), "GEEX001"));
+                .orElseThrow(() -> new ApiRequestException(orderID.toString(), "GEEX001"));
     }
 
     @GetMapping
@@ -59,8 +60,6 @@ public class RecipientController {
     @GetMapping(value = "/dto/{orderID}")
     @ResponseStatus(code = HttpStatus.OK)
     public SimpleOrder getOrderDTO(@PathVariable("orderID") UUID orderID) {
-
-
         return service.get(orderID)
                 .map(simpleOrderDTOMapper::apply)
                 .orElseThrow();

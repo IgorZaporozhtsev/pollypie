@@ -1,9 +1,9 @@
 package com.zeecoder.kitchen;
 
-import com.zeecoder.domains.ClientOrder;
-import com.zeecoder.domains.ItemRepository;
-import com.zeecoder.domains.OrderRepository;
-import com.zeecoder.domains.OrderState;
+import com.zeecoder.common.ClientOrder;
+import com.zeecoder.common.ItemRepository;
+import com.zeecoder.common.OrderRepository;
+import com.zeecoder.common.OrderState;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

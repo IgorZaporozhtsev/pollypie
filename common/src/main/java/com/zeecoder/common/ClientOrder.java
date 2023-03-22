@@ -1,4 +1,4 @@
-package com.zeecoder.domains;
+package com.zeecoder.common;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;

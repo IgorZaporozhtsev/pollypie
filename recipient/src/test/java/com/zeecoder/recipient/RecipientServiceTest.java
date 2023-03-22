@@ -1,6 +1,6 @@
 package com.zeecoder.recipient;
 
-import com.zeecoder.domains.*;
+import com.zeecoder.common.*;
 import com.zeecoder.kafka.OrderEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

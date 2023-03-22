@@ -1,6 +1,6 @@
 package com.zeecoder.recipient;
 
-import com.zeecoder.domains.ClientOrder;
+import com.zeecoder.common.ClientOrder;
 import com.zeecoder.recipient.dto.SimpleOrder;
 import org.springframework.stereotype.Component;
 

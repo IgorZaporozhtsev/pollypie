@@ -8,13 +8,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication(
         scanBasePackages = {
                 "com.zeecoder.kafka",
-                "com.zeecoder.domains",
+                "com.zeecoder.common",
                 "com.zeecoder.recipient"
         }
 )
 
-@EntityScan(basePackages = {"com.zeecoder.domains", "com.zeecoder.recipient"})
-@EnableJpaRepositories(basePackages = {"com.zeecoder.domains", "com.zeecoder.recipient"})
+@EntityScan(basePackages = {"com.zeecoder.common", "com.zeecoder.recipient"})
+@EnableJpaRepositories(basePackages = {"com.zeecoder.common", "com.zeecoder.recipient"})
 public class RecipientApplication {
     public static void main(String[] args) {
         SpringApplication.run(RecipientApplication.class, args);

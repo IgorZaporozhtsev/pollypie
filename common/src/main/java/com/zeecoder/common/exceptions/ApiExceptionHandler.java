@@ -1,4 +1,4 @@
-package com.zeecoder.recipient.exceptions;
+package com.zeecoder.common.exceptions;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,8 +10,8 @@ import java.util.Objects;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
-    @ExceptionHandler(ApiRecipientException.class)
-    public ResponseEntity<ApiException> orderNotFound(ApiRecipientException exception
+    @ExceptionHandler(ApiRequestException.class)
+    public ResponseEntity<ApiException> orderNotFound(ApiRequestException exception
     ) {
 
         var status = Arrays.stream(GeneralException.values())

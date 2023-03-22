@@ -3,6 +3,6 @@ rootProject.name = 'pollypie'
 include 'kitchen'
 include 'kafka'
 include 'delivery'
-include 'domains'
+include 'common'
 include 'recipient'
 
