@@ -11,9 +11,9 @@
         <module name="IdeaProjects.pollypie.kafka.main" />
         <module name="pollypie.main" />
         <module name="pollypie.delivery.main" />
+        <module name="dev.IdeaProjects.pollypie.domains.main" />
         <module name="pollypie.kitchen.main" />
         <module name="IdeaProjects.pollypie.recipient.main" />
-        <module name="com.zeecoder.pollypie.domains.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
