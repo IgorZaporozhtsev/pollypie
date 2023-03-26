@@ -32,30 +32,32 @@ public class KitchenApplication {
     CommandLineRunner run(KitchenService service) {
         return args -> IntStream.rangeClosed(1, 100).forEach(i -> {
 
-            ClientOrder order = new ClientOrder();
+                    ClientOrder order = new ClientOrder();
 
-            var adds = List.of(
-                    Addition.builder()
-                            .name("Ketchup" + i)
-                            .itemID(UUID.randomUUID()).build()
-            );
+                    var adds = List.of(
+                            Addition.builder()
+                                    .name("Ketchup" + i)
+                                    .itemID(UUID.randomUUID()).build()
+                    );
 
-            var items = List.of(
-                    Item.builder()
-                            .itemID(UUID.randomUUID())
-                            .name("Pizza" + i)
-                            .clientOrder(order)
-                            .adds(adds)
-                            .build()
-            );
+                    var items = List.of(
+                            Item.builder()
+                                    .itemID(UUID.randomUUID())
+                                    .name("Pizza" + i)
+                                    .clientOrder(order)
+                                    .adds(adds)
+                                    .build()
+                    );
 
-            order.setOrderID(UUID.randomUUID());
-            order.setDescription("generated order, number " + i);
-            order.setItems(items);
-            order.setState(OrderState.OPEN);
+                    order.setOrderID(UUID.randomUUID());
+                    order.setDescription("generated order, number " + i);
+                    order.setItems(items);
+                    order.setState(OrderState.OPEN);
 
-            service.saveOrder(order);
+                    service.saveOrder(order);
+                }
 
-        });
+
+        );
     }
 }

@@ -1,53 +1,59 @@
 package com.zeecoder.recipient.security.config;
 
+import com.zeecoder.recipient.security.config.users.Role;
+import com.zeecoder.recipient.security.config.users.UserPermission;
+import com.zeecoder.recipient.security.config.users.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity //enable @PreAuthorize
+@AllArgsConstructor
 public class SecurityConfiguration {
+
+    private final UserRepository userRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        String createOrderEndpoint = "/api/v1/client-order/**";
+
+        //FYI order doest really matter when we configure restriction to endpoints
         http.
+                csrf().disable().
                 authorizeHttpRequests()
-                .requestMatchers("/**").authenticated()
+                .requestMatchers("/").permitAll()
+
+                //Http method can be configured by enable @EnableMethodSecurity, and
+                //put restriction in Controller using  @PreAuthorize("hasRole('ADMIN')") and @PreAuthorize("hasAuthority('ADMIN')")
+
+                .requestMatchers(GET, createOrderEndpoint).hasAuthority(UserPermission.READ_EXTERNAL.getPermission())
+                .requestMatchers(POST, createOrderEndpoint).hasAuthority(UserPermission.WRITE_INTERNAL.getPermission())
+                .requestMatchers(DELETE, createOrderEndpoint).hasAnyRole(Role.ADMIN.name(), Role.MODERATOR.name())
+                .anyRequest()
+                .authenticated()
                 .and()
                 .httpBasic();
-        // .hasRole("USER")
 
         return http.build();
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        String password = passwordEncoder().encode("password");
+        return firstName -> userRepository.findByUsername(firstName)
+                .orElseThrow(() -> new EntityNotFoundException("There is no user"));
 
-        UserDetails user = User.builder()
-                .username("user")
-                .password(password)
-                .roles("USER")
-                .build();
-
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(password)
-                .roles("ADMIN", "USER")
-                .build();
-
-
-        return new InMemoryUserDetailsManager(user, admin);
     }
 
     @Bean
