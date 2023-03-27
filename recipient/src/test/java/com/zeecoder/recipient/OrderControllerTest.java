@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zeecoder.common.ClientOrder;
 import com.zeecoder.common.Item;
 import com.zeecoder.common.OrderState;
+import com.zeecoder.recipient.service.RecipientService;
+import com.zeecoder.recipient.util.SimpleOrderDTOMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

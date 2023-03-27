@@ -1,13 +1,15 @@
 package com.zeecoder.recipient.security;
 
+import com.zeecoder.recipient.security.repo.UserRepository;
 import com.zeecoder.recipient.security.token.Token;
 import com.zeecoder.recipient.security.token.TokenRepository;
 import com.zeecoder.recipient.security.token.TokenType;
-import com.zeecoder.recipient.user.Role;
-import com.zeecoder.recipient.user.User;
+import com.zeecoder.recipient.security.user.Role;
+import com.zeecoder.recipient.security.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +24,13 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .firstName(request.firstName())
+                .username(request.firstName())
                 .lastName(request.lastName())
                 .email(request.email())
                 .password(passwordEncoder.encode(request.password()))
-                .role(Role.USER)
+                .authorities(Role.USER.getAuthorities())
                 .build();
+
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         saveUserToken(savedUser, jwtToken);
@@ -45,7 +48,7 @@ public class AuthenticationService {
                 )
         );
         var user = repository.findByEmail(request.email())
-                .orElseThrow();
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         var jwtToken = jwtService.generateToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);

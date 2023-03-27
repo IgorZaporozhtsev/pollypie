@@ -1,7 +1,12 @@
-package com.zeecoder.recipient.security;
+package com.zeecoder.recipient.security.controller;
 
+import com.zeecoder.recipient.security.AuthenticationRequest;
+import com.zeecoder.recipient.security.AuthenticationResponse;
+import com.zeecoder.recipient.security.AuthenticationService;
+import com.zeecoder.recipient.security.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +26,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.register(request));
     }
 
+    @PreAuthorize(value = "hasAnyRole('ADMIN','USER')")
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
             @RequestBody AuthenticationRequest request

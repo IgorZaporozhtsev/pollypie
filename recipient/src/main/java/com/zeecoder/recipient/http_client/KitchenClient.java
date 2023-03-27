@@ -1,4 +1,4 @@
-package com.zeecoder.recipient.client;
+package com.zeecoder.recipient.http_client;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.service.annotation.GetExchange;
