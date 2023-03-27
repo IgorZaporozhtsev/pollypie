@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
+
 import static com.zeecoder.recipient.security.user.Role.*;
 
 @SpringBootApplication(
@@ -31,7 +33,8 @@ public class RecipientApplication {
     CommandLineRunner run(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
             User admin = adminUser(passwordEncoder);
-            userRepository.save(admin);
+            User client = clientUser(passwordEncoder);
+            userRepository.saveAll(List.of(admin, client));
         };
     }
 
