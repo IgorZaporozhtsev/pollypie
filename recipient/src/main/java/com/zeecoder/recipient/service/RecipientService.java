@@ -1,8 +1,8 @@
-package com.zeecoder.recipient;
+package com.zeecoder.recipient.service;
 
 import com.zeecoder.common.*;
 import com.zeecoder.kafka.OrderEvent;
-import com.zeecoder.recipient.client.KitchenClient;
+import com.zeecoder.recipient.http_client.KitchenClient;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

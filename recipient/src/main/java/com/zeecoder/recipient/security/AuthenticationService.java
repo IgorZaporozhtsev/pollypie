@@ -1,5 +1,6 @@
 package com.zeecoder.recipient.security;
 
+import com.zeecoder.recipient.security.repo.UserRepository;
 import com.zeecoder.recipient.security.token.Token;
 import com.zeecoder.recipient.security.token.TokenRepository;
 import com.zeecoder.recipient.security.token.TokenType;

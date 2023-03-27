@@ -2,6 +2,7 @@ package com.zeecoder.recipient;
 
 import com.zeecoder.common.*;
 import com.zeecoder.kafka.OrderEvent;
+import com.zeecoder.recipient.service.RecipientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

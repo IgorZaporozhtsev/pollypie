@@ -1,5 +1,9 @@
-package com.zeecoder.recipient.security;
+package com.zeecoder.recipient.security.controller;
 
+import com.zeecoder.recipient.security.AuthenticationRequest;
+import com.zeecoder.recipient.security.AuthenticationResponse;
+import com.zeecoder.recipient.security.AuthenticationService;
+import com.zeecoder.recipient.security.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

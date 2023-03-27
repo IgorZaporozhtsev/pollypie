@@ -1,6 +1,6 @@
-package com.zeecoder.recipient.client.configuration;
+package com.zeecoder.recipient.http_client.config;
 
-import com.zeecoder.recipient.client.KitchenClient;
+import com.zeecoder.recipient.http_client.KitchenClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;

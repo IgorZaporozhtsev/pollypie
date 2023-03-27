@@ -1,4 +1,4 @@
-package com.zeecoder.recipient.security;
+package com.zeecoder.recipient.security.repo;
 
 import com.zeecoder.recipient.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

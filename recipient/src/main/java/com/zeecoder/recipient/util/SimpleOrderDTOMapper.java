@@ -1,4 +1,4 @@
-package com.zeecoder.recipient;
+package com.zeecoder.recipient.util;
 
 import com.zeecoder.common.ClientOrder;
 import com.zeecoder.recipient.dto.SimpleOrder;
