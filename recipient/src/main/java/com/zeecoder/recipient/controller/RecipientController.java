@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -54,6 +55,7 @@ public class RecipientController {
     }
 
     @DeleteMapping("{orderID}")
+    @PreAuthorize(value = "hasAuthority('internal:delete')")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("orderID") UUID orderID) {
         service.delete(orderID);

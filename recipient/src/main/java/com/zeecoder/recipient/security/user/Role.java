@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.toSet;
 public enum Role {
 
     ADMIN(generalPermission()),
-    USER(Set.of(READ_INTERNAL, WRITE_INTERNAL)),
+    USER(Set.of(READ_INTERNAL, WRITE_INTERNAL, DELETE_INTERNAL)),
     CLIENT(Set.of(READ_EXTERNAL)),
     MODERATOR(generalPermission());
 
