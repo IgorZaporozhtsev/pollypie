@@ -2,41 +2,53 @@ package com.zeecoder.recipient.security.user;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
+import java.io.Serial;
+import java.util.Set;
 
-@Builder
+@Entity
+@Table(name = "internal user")
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
+@Builder
 @EqualsAndHashCode
-@NoArgsConstructor
-@Entity
-@Table(name = "_user")
 public class User implements UserDetails {
+
+    @Serial
+    private static final long serialVersionUID = -5550656808402899820L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String firstName;
+    private int id;
+    @Column
+    private String username;
+    @Column
     private String lastName;
+    @Column
     private String email;
+    @Column
     private String password;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<SimpleGrantedAuthority> authorities;
+
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+    public Set<SimpleGrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override
