@@ -42,7 +42,8 @@ public class RecipientApplication {
         return User.builder()
                 .username("client")
                 .lastName("Lizerman")
-                .password(passwordEncoder.encode("password"))
+                .email("lizerman@gmail.com")
+                .password(passwordEncoder.encode("Lizerman"))
                 .authorities(CLIENT.getAuthorities())
                 .build();
     }
@@ -51,7 +52,7 @@ public class RecipientApplication {
         return User.builder()
                 .username("moderator")
                 .lastName("Geremy")
-                .password(passwordEncoder.encode("password"))
+                .password(passwordEncoder.encode("Geremy"))
                 .authorities(MODERATOR.getAuthorities())
                 .build();
     }
@@ -60,7 +61,7 @@ public class RecipientApplication {
         return User.builder()
                 .username("user")
                 .lastName("Pitter")
-                .password(passwordEncoder.encode("password"))
+                .password(passwordEncoder.encode("Pitter"))
                 //authorities holds together roles - ROLE_ and authorities READ. Define roles by prefix ROLE_
                 .authorities(USER.getAuthorities())
                 .build();
@@ -71,7 +72,7 @@ public class RecipientApplication {
                 .username("admin")
                 .lastName("Dickson")
                 .email("dickson@gmail.com")
-                .password(passwordEncoder.encode("password"))
+                .password(passwordEncoder.encode("Dickson"))
                 .authorities(ADMIN.getAuthorities())
                 .build();
     }
