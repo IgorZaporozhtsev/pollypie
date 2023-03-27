@@ -13,7 +13,7 @@
         <module name="pollypie.delivery.main" />
         <module name="pollypie.kitchen.main" />
         <module name="IdeaProjects.pollypie.recipient.main" />
-        <module name="com.zeecoder.pollypie.common.main" />
+        <module name="IdeaProjects.pollypie.common.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
