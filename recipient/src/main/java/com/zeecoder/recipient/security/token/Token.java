@@ -1,6 +1,6 @@
 package com.zeecoder.recipient.security.token;
 
-import com.zeecoder.recipient.user.User;
+import com.zeecoder.recipient.security.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

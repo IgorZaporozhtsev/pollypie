@@ -1,6 +1,6 @@
 package com.zeecoder.recipient.security.repo;
 
-import com.zeecoder.recipient.user.User;
+import com.zeecoder.recipient.security.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

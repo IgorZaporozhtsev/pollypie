@@ -1,4 +1,4 @@
-package com.zeecoder.recipient.user;
+package com.zeecoder.recipient.security.user;
 
 import jakarta.persistence.*;
 import lombok.*;
