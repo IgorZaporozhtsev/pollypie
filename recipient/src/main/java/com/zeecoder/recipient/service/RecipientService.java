@@ -25,7 +25,7 @@ public class RecipientService {
 
     public void save(ClientOrder order) {
         event.sendMessage(order);
-        log.info("Data from kafka is sent: 🎉🎉🎉" + order);
+        log.info("Order was send to kitchen service: 🎉🎉🎉" + order);
     }
 
     public Optional<ClientOrder> get(UUID orderID) {

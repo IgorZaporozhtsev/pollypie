@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -27,4 +28,6 @@ public class Addition implements Serializable {
 
     @Column(name = "name")
     String name;
+
+    BigDecimal itemPrice;
 }

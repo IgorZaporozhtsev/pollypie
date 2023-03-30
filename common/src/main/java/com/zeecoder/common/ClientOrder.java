@@ -8,6 +8,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -34,6 +35,9 @@ public class ClientOrder implements Serializable {
 
     @NotBlank
     String description;
+
+    @NotBlank
+    BigDecimal totalPrice;
 
     @Enumerated(value = EnumType.STRING)
     OrderState state;
