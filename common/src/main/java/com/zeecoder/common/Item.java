@@ -2,10 +2,12 @@ package com.zeecoder.common;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -29,6 +31,9 @@ public class Item implements Serializable {
     UUID itemID;
     @Column(name = "name")
     String name;
+
+    @NotBlank
+    BigDecimal itemPrice;
 
     @Column(name = "amount")
     Integer amount;
