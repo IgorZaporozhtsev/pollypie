@@ -18,6 +18,8 @@ spring:
     database: postgresql
   kafka:
     bootstrap-servers: localhost:9092
+  liquibase:
+    change-log: db/changelog/db.changelog-master.xml
 server:
   port: 8080
 logging:
