@@ -1,7 +1,9 @@
 package com.zeecoder.recipient.util;
 
 import com.zeecoder.common.ClientOrder;
+import com.zeecoder.common.ItemRepository;
 import com.zeecoder.common.OrderRepository;
+import com.zeecoder.common.OrderState;
 import com.zeecoder.recipient.security.repo.UserRepository;
 import com.zeecoder.recipient.security.user.User;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import static com.zeecoder.recipient.security.user.Role.*;
@@ -19,15 +22,29 @@ import static com.zeecoder.recipient.security.user.Role.*;
 public class EntityGenerator {
     private final PodamFactory podamFactory;
     private final OrderRepository orderRepository;
+    private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     public void generate() {
+        //changeData();
         User admin = adminUser(passwordEncoder);
         User client = clientUser(passwordEncoder);
         userRepository.saveAll(List.of(admin, client));
 
         //generateDomainEntities();
+    }
+
+    private void changeData() {
+        List<ClientOrder> all = orderRepository.findAll();
+        all.forEach(clientOrder -> {
+                    OrderState value = OrderState.values()[new Random().nextInt(OrderState.values().length)];
+                    clientOrder.setState(value);
+                    orderRepository.save(clientOrder);
+                }
+
+        );
+
     }
 
     private void generateDomainEntities() {
