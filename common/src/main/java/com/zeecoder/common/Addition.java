@@ -24,6 +24,7 @@ public class Addition implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "add_id")
     UUID addID;
 
     @Column(name = "name")

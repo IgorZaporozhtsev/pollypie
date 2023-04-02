@@ -9,7 +9,7 @@ import java.io.Serial;
 import java.util.Set;
 
 @Entity
-@Table(name = "internal user")
+@Table(name = "internal_user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,7 +22,8 @@ public class User implements UserDetails {
     private static final long serialVersionUID = -5550656808402899820L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "internal_user_seq")
+    @SequenceGenerator(name = "internal_user_seq", allocationSize = 1)
     private int id;
     @Column
     private String username;
@@ -33,6 +34,7 @@ public class User implements UserDetails {
     @Column
     private String password;
     @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "authorities")
     private Set<SimpleGrantedAuthority> authorities;
 
 
