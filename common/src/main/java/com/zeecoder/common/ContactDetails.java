@@ -17,7 +17,7 @@ public class ContactDetails {
     private String firstName;
     @Size(min = 3, max = 10)
     private String lastName;
-    @Digits(integer = 13, fraction = 0)
+    @Pattern(regexp = "[\\d\\s()+-]+")
     @NotNull
     private String phoneNumber;
     @NotNull

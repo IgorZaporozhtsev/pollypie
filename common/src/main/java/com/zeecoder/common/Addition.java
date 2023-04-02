@@ -11,7 +11,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString(of = {"itemID", "name"})
+@ToString(of = {"addID", "name"})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,7 +24,8 @@ public class Addition implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.UUID)
-    UUID itemID;
+    @Column(name = "add_id")
+    UUID addID;
 
     @Column(name = "name")
     String name;

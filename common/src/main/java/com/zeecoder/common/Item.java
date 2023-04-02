@@ -28,6 +28,7 @@ public class Item implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "item_id")
     UUID itemID;
     @Column(name = "name")
     String name;
@@ -39,13 +40,11 @@ public class Item implements Serializable {
     Integer amount;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_clientOrder")
+    @JoinColumn(name = "fk_order_id")
     ClientOrder clientOrder;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "fk_item_id")
     List<Addition> adds = new ArrayList<>();
 
     @JsonBackReference
