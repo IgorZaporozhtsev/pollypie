@@ -1,4 +1,4 @@
-![architecture of pollypie application](./doc-image/DoubleWideBar.png)
+![architecture of pollypie application](./doc-image/schemas-pollypie.svg)
 
 ## How to push images to remote and local docker registry
 
