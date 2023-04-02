@@ -44,7 +44,7 @@ public class Item implements Serializable {
     ClientOrder clientOrder;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "fk_item_id")
     List<Addition> adds = new ArrayList<>();
 
     @JsonBackReference

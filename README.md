@@ -1,4 +1,4 @@
-![event storm result](./doc-image/DoubleWideBar.png)
+![architecture of pollypie application](./doc-image/DoubleWideBar.png)
 
 ## How to push images to remote and local docker registry
 
@@ -10,3 +10,7 @@
 # build all images to local registry
 ./gradlew jibDockerBuild
 ```
+
+[The Epochconverter for chanchesets id liquibase](https://www.epochconverter.com/)
+
+[Epoch Unix Time Stamp Converter](https://www.pelock.com/products/epoch-unix-time-stamp-converter)
