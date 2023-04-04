@@ -24,6 +24,7 @@ public class RecipientService {
 
 
     public void save(ClientOrder order) {
+        orderRepository.save(order);
         event.sendMessage(order);
         log.info("Order was send to kitchen service: 🎉🎉🎉" + order);
     }
