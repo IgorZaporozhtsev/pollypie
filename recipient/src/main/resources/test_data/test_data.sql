@@ -210,3 +210,54 @@ values ('cd2b423c-4805-4248-99cc-0b7cc029dd80', 19, 467, 'Crush - Grape, 355 Ml'
 insert into item (item_id, amount, item_price, name, fk_order_id)
 values ('af838d54-9fd7-45c7-9510-a32260ba8fcc', 20, 527, 'Egg Patty Fried', 'c0315c97-a498-4be9-9321-10ed64e27b13');
 
+
+
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('e5a6102c-4350-48be-b8a6-486657df2ef6', 373,
+        'Papa Delta Charlie Tango Sierra Yankee Alfa Juliett Foxtrot Romeo Lima Whiskey India Quebec', null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('4d99cf01-e494-47d8-88f4-8edaf0342167', 206,
+        'Oscar Zulu Lima Juliett India Whiskey Charlie November Alfa Mike Bravo Victor Romeo', null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('cde1ff32-76e5-485a-afaa-069cdc34d072', 818,
+        'Charlie Alfa X-ray Yankee India November Foxtrot Hotel Delta Juliett Oscar Whiskey Romeo Echo', null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('6d1cccf7-68a5-4246-9ac6-fb31b52eba32', 878,
+        'Bravo Zulu Sierra Juliett Charlie Golf Yankee X-ray Papa Mike Echo India Whiskey Lima Hotel Delta Uniform Kilo',
+        null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('76728380-3df9-4b17-aa29-4566c5626a13', 864,
+        'Bravo Echo Charlie Golf Foxtrot Romeo Papa Lima India Yankee Victor Kilo X-ray Alfa Mike', null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('429f61e1-129d-42cd-9af6-b60675b8f6f4', 7, 'Golf Kilo Quebec Delta Alfa November Tango Victor Foxtrot Hotel',
+        null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('a535084a-c1a0-4a38-85d0-3361ef058f78', 763,
+        'Kilo Alfa Quebec Romeo Uniform Whiskey Mike Charlie X-ray Papa Echo Sierra November Lima Oscar Victor India Zulu Golf Delta',
+        null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('861210af-e241-4d80-8d56-079779e0e9e1', 897,
+        'Sierra Romeo Juliett Alfa November Kilo Hotel Yankee Quebec Oscar Zulu', null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('70851257-634d-4c97-b313-13027f990f26', 609,
+        'Victor Whiskey Tango Quebec Alfa Sierra Oscar Golf Mike November Kilo Juliett Uniform Echo Zulu Romeo Yankee Papa Hotel',
+        null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('cb9d96e3-cd62-44d3-b57b-fa3c044b6cf0', 742,
+        'Juliett Charlie Zulu Hotel November Romeo Victor Quebec Uniform Foxtrot Echo Kilo', null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('ef14b417-b526-40b8-8be1-facdaf892027', 965,
+        'Uniform Mike Echo Lima Quebec Charlie Kilo Victor Delta Yankee Zulu Hotel Bravo X-ray Alfa Romeo Sierra Golf Foxtrot',
+        null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('f68f55c8-b7d8-4623-9e60-bb45d52dd203', 552,
+        'Sierra Papa Whiskey Lima Yankee Victor Bravo Alfa Foxtrot Zulu Romeo Mike November Echo', null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('49c608e5-abd3-4eb6-adbf-234076a6adc8', 404,
+        'Echo Lima Hotel Mike Victor Uniform Juliett Golf Foxtrot Whiskey X-ray', null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('868cd818-2fdb-46f0-8ecf-752fd4c6309f', 107,
+        'Sierra Delta Papa Kilo Tango Victor November Echo Quebec Zulu Romeo Foxtrot Lima Whiskey', null);
+insert into addition (add_id, item_price, name, fk_item_id)
+values ('cedbd0b2-257d-4f08-ab01-b54150e63e2e', 603,
+        'Quebec Delta Victor Zulu Mike November Yankee Kilo Echo Lima Foxtrot Bravo Papa Sierra', null);

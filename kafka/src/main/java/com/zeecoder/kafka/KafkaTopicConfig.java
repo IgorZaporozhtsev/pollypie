@@ -11,12 +11,24 @@ public class KafkaTopicConfig {
     @Bean
     public NewTopic deliveryTopic() {
         return TopicBuilder.name("delivery")
+                .partitions(1)
+                .replicas(1)
                 .build();
     }
 
     @Bean
     public NewTopic kitchenTopic() {
         return TopicBuilder.name("kitchen")
+                .partitions(1)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic recipientTopic() {
+        return TopicBuilder.name("recipient")
+                .partitions(1)
+                .replicas(1)
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.zeecoder.common;
 
+import com.zeecoder.recipient.domain.ContactDetails;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;

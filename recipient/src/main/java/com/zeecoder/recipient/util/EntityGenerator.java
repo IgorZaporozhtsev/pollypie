@@ -1,9 +1,8 @@
 package com.zeecoder.recipient.util;
 
-import com.zeecoder.common.ClientOrder;
-import com.zeecoder.common.ItemRepository;
-import com.zeecoder.common.OrderRepository;
-import com.zeecoder.common.OrderState;
+import com.zeecoder.recipient.domain.Order;
+import com.zeecoder.recipient.domain.OrderStatus;
+import com.zeecoder.recipient.repository.OrderRepository;
 import com.zeecoder.recipient.security.repo.UserRepository;
 import com.zeecoder.recipient.security.user.User;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ import static com.zeecoder.recipient.security.user.Role.*;
 public class EntityGenerator {
     private final PodamFactory podamFactory;
     private final OrderRepository orderRepository;
-    private final ItemRepository itemRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -36,10 +34,10 @@ public class EntityGenerator {
     }
 
     private void changeData() {
-        List<ClientOrder> all = orderRepository.findAll();
+        List<Order> all = orderRepository.findAll();
         all.forEach(clientOrder -> {
-                    OrderState value = OrderState.values()[new Random().nextInt(OrderState.values().length)];
-                    clientOrder.setState(value);
+                    OrderStatus value = OrderStatus.values()[new Random().nextInt(OrderStatus.values().length)];
+                    clientOrder.setStatus(value);
                     orderRepository.save(clientOrder);
                 }
 
@@ -48,12 +46,12 @@ public class EntityGenerator {
     }
 
     private void generateDomainEntities() {
-        podamFactory.manufacturePojo(ClientOrder.class);
+        podamFactory.manufacturePojo(Order.class);
 
         IntStream.rangeClosed(0, 1).forEach(
                 i -> {
-                    ClientOrder clientOrder = podamFactory.manufacturePojo(ClientOrder.class);
-                    orderRepository.save(clientOrder);
+                    Order order = podamFactory.manufacturePojo(Order.class);
+                    orderRepository.save(order);
                 }
         );
     }

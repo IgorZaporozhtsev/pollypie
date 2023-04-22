@@ -1,4 +1,4 @@
-package com.zeecoder.common;
+package com.zeecoder.recipient.domain;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.*;

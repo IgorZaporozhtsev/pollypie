@@ -1,44 +1,59 @@
 --liquibase formatted sql
 
---changeset Ihor:1680420597
-create table addition
+--changeset Ihor:1682007929
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+--changeset Ihor:1680873560
+create table category
 (
-    add_id     uuid not null,
-    item_price numeric(38, 2),
-    name       varchar(255),
-    fk_item_id uuid,
-    primary key (add_id)
+    id            uuid,
+    category_name varchar(255),
+    primary key (id)
 );
 
---changeset Ihor:1680420629
-create table item
+--changeset Ihor:1680873547
+create table product
 (
-    item_id     uuid not null,
-    amount      integer,
-    item_price  numeric(38, 2),
-    name        varchar(255),
-    fk_order_id uuid,
-    primary key (item_id)
+    id             uuid,
+    price          DECIMAL(10, 2),
+    sku            VARCHAR(50),
+    product_name   VARCHAR(255),
+    category_id_fk uuid
+        constraint products_to_category references category (id),
+    primary key (id)
+
 );
 
---changeset Ihor:1680420638
+--changeset Ihor:1680873557
 create table client_order
 (
-    order_id     uuid not null,
+    id           uuid,
+    title        varchar(255),
+    total_price  DECIMAL(10, 2),
+    status       varchar(10),
     address      varchar(100),
     email        varchar(255),
     first_name   varchar(10),
     last_name    varchar(10),
     phone_number varchar(255),
-    description  varchar(255),
-    state        varchar(255),
-    total_price  numeric(38, 2),
-    primary key (order_id)
+    primary key (id),
+    order_date   timestamp not null default current_date
 );
+
+--changeset Ihor:1680873553
+create table item
+(
+    id          uuid primary key unique
+        constraint item_to_order references product (id),
+    quantity    integer,
+    order_id_fk uuid
+        constraint items_to_order references client_order (id)
+);
+
 --changeset Ihor:1680420653
 create table internal_user
 (
-    id        integer not null,
+    id        uuid,
     email     varchar(255),
     last_name varchar(255),
     password  varchar(255),
@@ -46,11 +61,10 @@ create table internal_user
     primary key (id)
 );
 
-
 --changeset Ihor:1680420665
 create table token
 (
-    id         integer not null,
+    id         uuid,
     expired    boolean not null,
     revoked    boolean not null,
     token      varchar(255),
@@ -58,10 +72,11 @@ create table token
     user_id    integer,
     primary key (id)
 );
+
 --changeset Ihor:1680420684
 create table authorities
 (
-    user_id     integer not null,
+    user_id     uuid,
     authorities bytea
 );
 
