@@ -1,16 +1,16 @@
 package com.zeecoder.recipient.util;
 
-import com.zeecoder.common.ClientOrder;
-import com.zeecoder.recipient.dto.SimpleOrder;
+import com.zeecoder.recipient.domain.Order;
+import com.zeecoder.recipient.dto.OrderResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 @Component
-public class SimpleOrderDTOMapper implements Function<ClientOrder, SimpleOrder> {
+public class SimpleOrderDTOMapper implements Function<Order, OrderResponse> {
 
     @Override
-    public SimpleOrder apply(ClientOrder clientOrder) {
-        return new SimpleOrder(clientOrder.getOrderID(), clientOrder.getDescription());
+    public OrderResponse apply(Order order) {
+        return new OrderResponse(order.getId(), order.getContactDetails());
     }
 }

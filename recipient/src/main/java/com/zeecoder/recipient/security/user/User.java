@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "internal_user")
@@ -22,9 +23,8 @@ public class User implements UserDetails {
     private static final long serialVersionUID = -5550656808402899820L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "internal_user_seq")
-    @SequenceGenerator(name = "internal_user_seq", allocationSize = 1)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     @Column
     private String username;
     @Column

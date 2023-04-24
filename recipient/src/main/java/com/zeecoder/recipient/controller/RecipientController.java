@@ -1,9 +1,10 @@
 package com.zeecoder.recipient.controller;
 
-import com.zeecoder.common.ClientOrder;
-import com.zeecoder.common.Item;
 import com.zeecoder.common.exceptions.ApiRequestException;
-import com.zeecoder.recipient.dto.SimpleOrder;
+import com.zeecoder.recipient.domain.Item;
+import com.zeecoder.recipient.domain.Order;
+import com.zeecoder.recipient.dto.OrderDtoMapper;
+import com.zeecoder.recipient.dto.OrderResponse;
 import com.zeecoder.recipient.service.RecipientService;
 import com.zeecoder.recipient.util.SimpleOrderDTOMapper;
 import jakarta.validation.Valid;
@@ -19,37 +20,46 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v1/client-order")
+@RequestMapping("/api/v1/client-order")
+//TODO: replace Entity to Dto, use ModelMapper
 public class RecipientController {
 
     private final RecipientService service;
     private final SimpleOrderDTOMapper simpleOrderDTOMapper;
 
-    @GetMapping(value = "{orderID}")
+    @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ClientOrder get(@PathVariable("orderID") UUID orderID) {
-        service.checkKitchenStatus(orderID);
-        return service.get(orderID)
-                .orElseThrow(() -> new ApiRequestException(orderID.toString(), "GEEX001"));
+    public Order getOrder(@PathVariable("id") UUID id) {
+        return service.getById(id)
+                .orElseThrow(() -> new ApiRequestException(id.toString(), "GEEX001"));
+    }
+
+    @GetMapping(value = "/dto/{orderID}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public OrderResponse getOrderDTO(@PathVariable("orderID") UUID orderID) {
+        return service.getById(orderID)
+                .map(simpleOrderDTOMapper)
+                .orElseThrow();
     }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public Page<ClientOrder> getAll(
-            @PageableDefault(sort = "orderID", size = 5) Pageable page) {
+    public Page<Order> getAll(
+            @PageableDefault(sort = "id", size = 5) Pageable page) {
         return service.getOrders(page);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    //TODO return id
-    public void saveOrder(@Valid @RequestBody ClientOrder order) {
-        service.save(order);
+    public OrderResponse saveOrder(@Valid @RequestBody Order order) {
+        var saved = service.save(order);
+        return new OrderResponse(saved.getId(), saved.getContactDetails());
+
     }
 
     @PostMapping("{orderID}")
     @ResponseStatus(code = HttpStatus.CREATED)
-    //TODO return id
+    //TODO return ItemResponse
     public void newItem(@RequestBody Item item, @PathVariable("orderID") UUID orderID) {
         service.addNewItemToOrder(item, orderID);
     }
@@ -61,12 +71,11 @@ public class RecipientController {
         service.delete(orderID);
     }
 
-    @GetMapping(value = "/dto/{orderID}")
-    @ResponseStatus(code = HttpStatus.OK)
-    public SimpleOrder getOrderDTO(@PathVariable("orderID") UUID orderID) {
-        return service.get(orderID)
-                .map(simpleOrderDTOMapper::apply)
-                .orElseThrow();
+
+    @PostMapping("/test")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public void testMapper(@RequestBody OrderDtoMapper dto) {
+        service.saveTestDto(dto);
     }
 }
 
