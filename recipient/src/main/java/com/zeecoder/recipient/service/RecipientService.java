@@ -33,7 +33,7 @@ public class RecipientService {
     @Transactional
     public Order save(Order order) {
         Order saved = orderRepository.save(order);
-        log.info(String.format("Order %s was saved to database", order.getId().toString()));
+        log.info("Order {} was saved to database", order.getId().toString());
         return saved;
     }
 
@@ -62,8 +62,8 @@ public class RecipientService {
     }
 
     public void provideNextOrder() {
-        log.info("Status is FREE. Start to providing order....");
-        orderRepository.findFirstByOrderByOrderDateDesc()
+        log.info("Start to providing order....");
+        orderRepository.findOpenedOrderByDate(OrderStatus.OPEN.name())
                 .ifPresentOrElse(this::process,
                         () -> log.info("Oops, perhaps you don't have orders anymore"));
     }
@@ -72,18 +72,12 @@ public class RecipientService {
         order.setStatus(OrderStatus.IN_PROGRESS);
         var saved = orderRepository.save(order);
 
-        //order.setStatus(OrderStatus.IN_PROGRESS);
-
-        //TODO Entity haven't saved need
-        // cover with test, helped cascade = CascadeType.PERSIST instead cascade = CascadeType.ALL
-
         var orderPadDto = OrderPadDto.builder()
                 .orderId(saved.getId())
                 .wishes(List.of("Margarita"))
                 .build();
 
         producer.sendMessage("recipient", assembleOrderEvent(orderPadDto));
-        //TODO change status only we get acknowledgment form kafka that Order IN_PROGRESS
     }
 
     private OrderEvent assembleOrderEvent(OrderPadDto orderPadDto) {

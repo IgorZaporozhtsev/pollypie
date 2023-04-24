@@ -2,22 +2,21 @@ package com.zeecoder.kitchen.controller;
 
 import com.zeecoder.kitchen.dto.TriggerRequest;
 import com.zeecoder.kitchen.service.KitchenService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
 @RequestMapping("api/v1/kitchen")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class KitchenController {
 
     private final KitchenService kitchenService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void triggerFreeEntryPoint(@RequestBody TriggerRequest triggerFreeRequest) {
         kitchenService.executeKitchenProcess(triggerFreeRequest);
     }

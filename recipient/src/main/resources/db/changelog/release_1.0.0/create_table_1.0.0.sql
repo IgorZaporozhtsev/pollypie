@@ -30,7 +30,7 @@ create table client_order
     id           uuid,
     title        varchar(255),
     total_price  DECIMAL(10, 2),
-    status       varchar(10),
+    status       varchar(30),
     address      varchar(100),
     email        varchar(255),
     first_name   varchar(10),
@@ -44,7 +44,7 @@ create table client_order
 create table item
 (
     id          uuid primary key unique
-        constraint item_to_order references product (id),
+        constraint item_to_product references product (id),
     quantity    integer,
     order_id_fk uuid
         constraint items_to_order references client_order (id)

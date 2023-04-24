@@ -2,7 +2,7 @@ package com.zeecoder.recipient.async;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zeecoder.common.WorkerState;
+import com.zeecoder.common.dto.WorkerState;
 import com.zeecoder.recipient.service.RecipientService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +24,7 @@ public class RecipientConsumer {
     void listener(String status) throws JsonProcessingException {
         var workerState = objectMapper.readValue(status, WorkerState.class);
         if (workerState.equals(WorkerState.FREE)) {
+            log.info("Recipient service got Kitchen status is FREE");
             recipientService.provideNextOrder();
         }
     }

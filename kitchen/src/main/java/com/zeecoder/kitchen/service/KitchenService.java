@@ -1,18 +1,20 @@
 package com.zeecoder.kitchen.service;
 
-import com.zeecoder.common.WorkerState;
 import com.zeecoder.common.dto.OrderPadDto;
+import com.zeecoder.common.dto.WorkerState;
 import com.zeecoder.kafka.Producer;
 import com.zeecoder.kitchen.dto.TriggerRequest;
 import com.zeecoder.kitchen.webclient.TheCocktailDbClient;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.zeecoder.common.WorkerState.FREE;
+import static com.zeecoder.common.dto.WorkerState.FREE;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class KitchenService {
@@ -41,6 +43,7 @@ public class KitchenService {
     public void executeKitchenProcess(TriggerRequest request) {
         if (request.state().equals(FREE)) {
             event.sendMessage("kitchen", FREE);
+            log.info("Kitchen status is FREE, provide next Order");
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.zeecoder.common;
+package com.zeecoder.common.dto;
 
 public enum WorkerState {
     FREE,

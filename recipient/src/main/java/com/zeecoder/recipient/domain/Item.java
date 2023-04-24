@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "order")
+@Table(name = "item")
 public class Item implements Serializable {
 
     @Serial
@@ -31,10 +31,14 @@ public class Item implements Serializable {
     @Column(name = "quantity")
     private int quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id_fk")
+    private Order order;
+
     @NotNull
     @Valid
     @MapsId
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "id")
     private Product product;
 }

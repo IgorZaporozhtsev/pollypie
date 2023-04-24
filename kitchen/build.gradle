@@ -6,7 +6,7 @@ plugins {
 jib.to.image = "booratina/${project.name}:${version}"
 
 dependencies {
-    compileOnly project(path: ':kafka')
-    compileOnly project(path: ':common')
+    implementation project(path: ':kafka') //Could not up Application context for test if compileOnly
+    implementation project(path: ':common')
 }
 

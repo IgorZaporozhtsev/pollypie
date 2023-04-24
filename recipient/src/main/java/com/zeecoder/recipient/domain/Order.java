@@ -40,8 +40,7 @@ public class Order implements Serializable {
     @Enumerated(value = EnumType.STRING)
     OrderStatus status;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "order_id_fk")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 
     @Embedded
