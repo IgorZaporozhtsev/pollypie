@@ -19,7 +19,7 @@ public class RecipientConsumer {
 
     @KafkaListener(
             topics = "kitchen",
-            groupId = "groupId", autoStartup = "true"
+            groupId = "kitchen-group", autoStartup = "true"
     )
     void listener(String status) throws JsonProcessingException {
         var workerState = objectMapper.readValue(status, WorkerState.class);

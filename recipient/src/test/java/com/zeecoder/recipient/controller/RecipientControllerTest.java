@@ -1,14 +1,14 @@
-package com.zeecoder.recipient;
+package com.zeecoder.recipient.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zeecoder.recipient.controller.RecipientController;
 import com.zeecoder.recipient.domain.ContactDetails;
 import com.zeecoder.recipient.domain.Item;
 import com.zeecoder.recipient.domain.Order;
 import com.zeecoder.recipient.domain.Product;
-import com.zeecoder.recipient.dto.OrderResponse;
+import com.zeecoder.recipient.dto.Menu;
+import com.zeecoder.recipient.dto.MenuDetailsResponse;
+import com.zeecoder.recipient.dto.MenuRequest;
 import com.zeecoder.recipient.service.RecipientService;
-import com.zeecoder.recipient.util.SimpleOrderDTOMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -20,26 +20,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
 import static org.mockito.Mockito.verify;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = RecipientController.class)
 @AutoConfigureMockMvc(addFilters = false) //ignore any filters such Spring Security Filters
-class RecipientControllerMvcTest {
+class RecipientControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -47,19 +45,33 @@ class RecipientControllerMvcTest {
     private ObjectMapper objectMapper;
     @MockBean
     private RecipientService service;
-    @MockBean
-    private SimpleOrderDTOMapper simpleOrderDTOMapper;
 
     private UUID orderId;
-    private Item celentanoItem;
-    private Item florenceItem;
     private Order orderNumber40;
-    private Order orderNumber41;
+    private MenuRequest menuRequest;
+    private MenuDetailsResponse menuDetailsResponse;
     private final String requestMapping = "/api/v1/client-order";
 
     @BeforeEach
     void initEach() {
         orderId = UUID.randomUUID();
+
+        var contactDetails = ContactDetails.builder()
+                .phoneNumber("+389073456352")
+                .lastName("Gregor")
+                .firstName("Magvayer")
+                .address("St.Middle of anywhere")
+                .email("gr@gmail.com")
+                .build();
+
+        var margarita = Menu.builder().dish("Margarita").count(2).build();
+        var beer = Menu.builder().dish("Beer").count(1).build();
+
+        menuRequest = MenuRequest.builder()
+                .title("new Menu request")
+                .menuList(List.of(margarita, beer))
+                .contactDetails(contactDetails).build();
+        menuDetailsResponse = new MenuDetailsResponse(orderId, contactDetails);
 
         var pizzaCelentano = Product.builder()
                 .id(UUID.randomUUID())
@@ -68,7 +80,7 @@ class RecipientControllerMvcTest {
                 .sku(UUID.randomUUID().toString())
                 .build();
 
-        celentanoItem = Item.builder()
+        Item celentanoItem = Item.builder()
                 .id(UUID.randomUUID())
                 .quantity(2)
                 .product(pizzaCelentano)
@@ -81,19 +93,12 @@ class RecipientControllerMvcTest {
                 .sku(UUID.randomUUID().toString())
                 .build();
 
-        florenceItem = Item.builder()
+        Item florenceItem = Item.builder()
                 .id(UUID.randomUUID())
                 .quantity(1)
                 .product(pizzaFlorence)
                 .build();
 
-        var contactDetails = ContactDetails.builder()
-                .phoneNumber("+389073456352")
-                .lastName("Gregor")
-                .firstName("Magvayer")
-                .address("St.Middle of anywhere")
-                .email("gr@gmail.com")
-                .build();
 
         orderNumber40 = Order.builder()
                 .id(orderId)
@@ -102,7 +107,7 @@ class RecipientControllerMvcTest {
                 .contactDetails(contactDetails)
                 .build();
 
-        orderNumber41 = Order.builder()
+        Order orderNumber41 = Order.builder()
                 .id(orderId)
                 .title("It's regular order")
                 .items(List.of(florenceItem))
@@ -111,23 +116,38 @@ class RecipientControllerMvcTest {
     }
 
     @Test
+    void shouldReturnStatusCreatedForSaveOrder() throws Exception {
+        given(service.save(any(MenuRequest.class))).willReturn(menuDetailsResponse);
+
+        var json = objectMapper.writeValueAsString(menuRequest);
+
+        System.out.println("requestContent: " + json);
+        mockMvc.perform(post(requestMapping)
+                        .contentType(APPLICATION_JSON)
+                        .content(json))
+                .andDo(print())
+                // .andExpect(content().string(objectMapper.writeValueAsString(menuResponse)))
+                .andExpect(jsonPath("$.id").value(orderNumber40.getId().toString()))
+                .andExpect(status().isCreated());
+    }
+
+    @Test
     void shouldReturnStatusOkForGetOrderById() throws Exception {
-        given(service.getById(orderId)).willReturn(Optional.of(orderNumber40));
+        given(service.getById(orderId)).willReturn(menuDetailsResponse);
 
         mockMvc.perform(get(requestMapping + "/{id}", orderId)
-                        .contentType("application/json"))
-
+                        .contentType(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(orderId.toString()))
-                .andExpect(content().string(objectMapper.writeValueAsString(orderNumber40)));
+                .andExpect(content().string(objectMapper.writeValueAsString(menuDetailsResponse)));
     }
 
     @Test
     void shouldReturnStatusOkForGetAllOrders() throws Exception {
 
-        Page<Order> page = new PageImpl<>(List.of(orderNumber40, orderNumber41));
+        Page<MenuDetailsResponse> page = new PageImpl<>(List.of(menuDetailsResponse));
 
         given(service.getOrders(any(Pageable.class))).willReturn(page);
 
@@ -135,7 +155,7 @@ class RecipientControllerMvcTest {
         mockMvc.perform(get(requestMapping))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(content().string(objectMapper.writeValueAsString(page)));
 
         // verify that the service method was called with the correct arguments
@@ -145,32 +165,6 @@ class RecipientControllerMvcTest {
         assertEquals("id", pageable.getSort().getOrderFor("id").getProperty());
         assertEquals(Sort.Direction.ASC, pageable.getSort().getOrderFor("id").getDirection());
         assertEquals(5, pageable.getPageSize());
-    }
-
-
-    @Test
-    void shouldReturnStatusCreatedForSaveOrder() throws Exception {
-
-        given(service.save(any(Order.class))).willReturn(orderNumber40);
-        var orderResponse = new OrderResponse(orderId, orderNumber40.getContactDetails());
-
-        mockMvc.perform(post(requestMapping)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(orderNumber40)))
-                .andDo(print())
-                .andExpect(content().string(objectMapper.writeValueAsString(orderResponse)))
-                .andExpect(status().isCreated());
-    }
-
-    @Test
-    void shouldReturnStatusCreatedForNewItem() throws Exception {
-        willDoNothing().given(service).addNewItemToOrder(celentanoItem, UUID.randomUUID());
-
-        mockMvc.perform(post(requestMapping + "/{orderId}", orderId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(celentanoItem)))
-                .andDo(print())
-                .andExpect(status().isCreated());
     }
 
     @Test

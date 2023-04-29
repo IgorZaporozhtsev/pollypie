@@ -8,7 +8,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @Configuration
-@ComponentScan(basePackages = {"com.zeecoder.kafka"})
+@ComponentScan(basePackages = {"com.zeecoder.kafka", "com.zeecoder.common"})
 public class ApplicationConfiguration {
 
     @Bean

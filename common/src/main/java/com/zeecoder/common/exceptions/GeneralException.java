@@ -23,7 +23,7 @@ public enum GeneralException {
     VALID_EXCEPTION(
             "Validation failed for argument",
             HttpStatus.BAD_REQUEST,
-            "MethodArgumentNotValidException",
+            "GEEX003",
             ZonedDateTime.now(ZoneId.of("Z"))
     );
 

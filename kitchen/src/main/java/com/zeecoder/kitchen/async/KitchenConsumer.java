@@ -19,7 +19,7 @@ public class KitchenConsumer {
 
     @KafkaListener(
             topics = "recipient",
-            groupId = "groupId"
+            groupId = "recipient-group"
     )
     void listener(String order) throws JsonProcessingException, InterruptedException {
         var orderEvent = mapper.readValue(order, OrderEvent.class);

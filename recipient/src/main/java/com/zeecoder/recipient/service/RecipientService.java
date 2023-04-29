@@ -2,13 +2,16 @@ package com.zeecoder.recipient.service;
 
 import com.zeecoder.common.dto.OrderEvent;
 import com.zeecoder.common.dto.OrderPadDto;
+import com.zeecoder.common.exceptions.ApiRequestException;
 import com.zeecoder.kafka.Producer;
-import com.zeecoder.recipient.domain.Item;
 import com.zeecoder.recipient.domain.Order;
 import com.zeecoder.recipient.domain.OrderStatus;
-import com.zeecoder.recipient.dto.OrderDtoMapper;
+import com.zeecoder.recipient.dto.Menu;
+import com.zeecoder.recipient.dto.MenuDetailsResponse;
+import com.zeecoder.recipient.dto.MenuRequest;
+import com.zeecoder.recipient.dto.OrderDetailsResponse;
 import com.zeecoder.recipient.repository.OrderRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -18,12 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RecipientService {
 
     private final OrderRepository orderRepository;
@@ -31,18 +35,49 @@ public class RecipientService {
     private final Producer<OrderEvent> producer;
 
     @Transactional
-    public Order save(Order order) {
-        Order saved = orderRepository.save(order);
+    public MenuDetailsResponse save(MenuRequest menuRequest) {
+        validateRequest(menuRequest);
+
+        var definitions = menuRequest.getMenuList().stream()
+                .collect(Collectors.toMap(Menu::getDish, Menu::getCount));
+
+        var order = Order.builder()
+                .title(menuRequest.getTitle())
+                .orderDefinitions(definitions)
+                .contactDetails(menuRequest.getContactDetails())
+                .build();
+        var savedOrder = orderRepository.save(order);
         log.info("Order {} was saved to database", order.getId().toString());
-        return saved;
+        return toResponseDto(savedOrder);
     }
 
-    public Optional<Order> getById(UUID orderId) {
-        return orderRepository.findById(orderId);
+    private void validateRequest(MenuRequest menuRequest) {
+        var hasDuplicates = menuRequest.getMenuList().stream()
+                .map(Menu::getDish)
+                .distinct()
+                .count() != menuRequest.getMenuList().size();
+
+        if (hasDuplicates) {
+            throw new ApiRequestException("dish in menu list has duplicates", "GEEX003");
+        }
     }
 
-    public Page<Order> getOrders(Pageable page) {
-        return orderRepository.findAll(page);
+    public MenuDetailsResponse getById(UUID orderId) {
+        var derivedOrder = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ApiRequestException(orderId.toString(), "GEEX001"));
+        return toResponseDto(derivedOrder);
+    }
+
+    public Page<MenuDetailsResponse> getOrders(Pageable page) {
+        return orderRepository.findAll(page).map(this::toResponseDto);
+    }
+
+    public List<MenuDetailsResponse> getOrdersDto() {
+        return orderRepository.findAllOrderDTOs();
+    }
+
+    public List<OrderDetailsResponse> getOrdersWithItemsCount() {
+        return orderRepository.findAllWithItemCount();
     }
 
     public void delete(UUID orderID) {
@@ -50,17 +85,6 @@ public class RecipientService {
     }
 
     @Transactional
-    public void addNewItemToOrder(Item item, UUID orderID) {
-        //TODO add if order has status OPEN
-        Order derivedOrder = orderRepository.getReferenceById(orderID);
-        if (derivedOrder.getStatus().equals(OrderStatus.OPEN)) {
-            var items = derivedOrder.getItems();
-            items.add(item);
-            derivedOrder.addOrderItems(items);
-            orderRepository.save(derivedOrder);
-        }
-    }
-
     public void provideNextOrder() {
         log.info("Start to providing order....");
         orderRepository.findOpenedOrderByDate(OrderStatus.OPEN.name())
@@ -70,10 +94,9 @@ public class RecipientService {
 
     private void process(Order order) {
         order.setStatus(OrderStatus.IN_PROGRESS);
-        var saved = orderRepository.save(order);
 
         var orderPadDto = OrderPadDto.builder()
-                .orderId(saved.getId())
+                .orderId(order.getId())
                 .wishes(List.of("Margarita"))
                 .build();
 
@@ -84,9 +107,7 @@ public class RecipientService {
         return new OrderEvent("OPEN", "order was opened at" + LocalDate.now(), orderPadDto);
     }
 
-    //TODO provide all with dto classes
-    public void saveTestDto(OrderDtoMapper dto) {
-        var order = modelMapper.map(dto, Order.class);
-        log.info("order " + order);
+    public MenuDetailsResponse toResponseDto(Order order) {
+        return modelMapper.map(order, MenuDetailsResponse.class);
     }
 }

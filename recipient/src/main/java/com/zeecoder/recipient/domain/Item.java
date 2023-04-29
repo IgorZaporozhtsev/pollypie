@@ -14,6 +14,7 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "item")

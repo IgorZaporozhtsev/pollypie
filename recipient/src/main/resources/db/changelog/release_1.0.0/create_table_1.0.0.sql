@@ -40,6 +40,16 @@ create table client_order
     order_date   timestamp not null default current_date
 );
 
+--changeset Ihor:1682410420
+CREATE TABLE order_definitions
+(
+    id        uuid references client_order (id),
+    item_name VARCHAR,
+    quantity  INTEGER,
+    PRIMARY KEY (id, item_name)
+);
+
+
 --changeset Ihor:1680873553
 create table item
 (
@@ -80,3 +90,13 @@ create table authorities
     authorities bytea
 );
 
+--
+-- alter table authorities
+--     add constraint user_authorities
+--         foreign key ("user_id")
+--             references internal_user;
+
+-- alter table if exists token
+--     add constraint FK3kmr32p10efolskk3k9oqwv8n
+--         foreign key (user_id)
+--             references internal_user;
