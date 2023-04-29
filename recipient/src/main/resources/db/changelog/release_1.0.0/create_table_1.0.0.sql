@@ -79,7 +79,8 @@ create table token
     revoked    boolean not null,
     token      varchar(255),
     token_type varchar(255),
-    user_id    integer,
+    user_id    uuid
+        constraint toke_to_user references internal_user (id),
     primary key (id)
 );
 

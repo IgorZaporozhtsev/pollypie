@@ -23,6 +23,8 @@ spring:
     change-log: db/changelog/db.changelog-master.yml
 server:
   port: 8080
+jwt:
+  expirationHours: 24
 logging:
   level:
     root: warn
