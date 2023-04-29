@@ -1,5 +1,8 @@
 package com.zeecoder.recipient.security;
 
+import com.zeecoder.recipient.security.dto.AuthenticationRequest;
+import com.zeecoder.recipient.security.dto.AuthenticationResponse;
+import com.zeecoder.recipient.security.dto.RegisterRequest;
 import com.zeecoder.recipient.security.repo.UserRepository;
 import com.zeecoder.recipient.security.token.Token;
 import com.zeecoder.recipient.security.token.TokenRepository;

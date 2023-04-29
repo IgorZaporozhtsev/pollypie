@@ -89,14 +89,3 @@ create table authorities
     user_id     uuid,
     authorities bytea
 );
-
---
--- alter table authorities
---     add constraint user_authorities
---         foreign key ("user_id")
---             references internal_user;
-
--- alter table if exists token
---     add constraint FK3kmr32p10efolskk3k9oqwv8n
---         foreign key (user_id)
---             references internal_user;
