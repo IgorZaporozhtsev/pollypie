@@ -20,8 +20,8 @@ public class JWTService {
 
     private static final String SECRET_KEY = "703273357638792F423F4528482B4B6250655368566D597133743677397A2443";
 
-    @Value("${jwt.expirationHours}")
-    private static final Long EXPIRATION_HOURS = 1L;
+    @Value("${jwt.expirationHours: 24}")
+    private Long EXPIRATION_HOURS;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

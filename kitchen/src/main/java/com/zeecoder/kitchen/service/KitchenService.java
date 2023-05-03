@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.concurrent.TimeUnit;
 
+import static com.zeecoder.common.dto.WorkerState.BUSY;
 import static com.zeecoder.common.dto.WorkerState.FREE;
 
 @Slf4j
@@ -24,6 +25,8 @@ public class KitchenService {
 
     @Transactional
     public void createItem(OrderPadDto itemDto) throws InterruptedException {
+        executeKitchenProcess(new TriggerRequest(BUSY)); //should make delay for Scheduler
+
         String cocktail = findCocktail("Margarita");
         doShake(cocktail);
 
@@ -41,9 +44,7 @@ public class KitchenService {
     }
 
     public void executeKitchenProcess(TriggerRequest request) {
-        if (request.state().equals(FREE)) {
-            event.sendMessage("kitchen", FREE);
-            log.info("Kitchen status is FREE, provide next Order");
-        }
+        event.sendMessage("kitchen", request.state());
+        log.info("Kitchen status is {}", request.state());
     }
 }

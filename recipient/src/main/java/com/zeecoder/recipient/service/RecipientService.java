@@ -2,6 +2,7 @@ package com.zeecoder.recipient.service;
 
 import com.zeecoder.common.dto.OrderEvent;
 import com.zeecoder.common.dto.OrderPadDto;
+import com.zeecoder.common.dto.WorkerState;
 import com.zeecoder.common.exceptions.ApiRequestException;
 import com.zeecoder.kafka.Producer;
 import com.zeecoder.recipient.domain.Order;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static com.zeecoder.common.dto.WorkerState.FREE;
 
 @Slf4j
 @Service
@@ -33,6 +37,7 @@ public class RecipientService {
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
     private final Producer<OrderEvent> producer;
+    private WorkerState workerState;
 
     @Transactional
     public MenuDetailsResponse save(MenuRequest menuRequest) {
@@ -84,12 +89,20 @@ public class RecipientService {
         orderRepository.deleteById(orderID);
     }
 
-    @Transactional
-    public void provideNextOrder() {
-        log.info("Start to providing order....");
-        orderRepository.findOpenedOrderByDate(OrderStatus.OPEN.name())
-                .ifPresentOrElse(this::process,
-                        () -> log.info("Oops, perhaps you don't have orders anymore"));
+    public void provideNextOrder(WorkerState workerState) {
+        this.workerState = workerState;
+    }
+
+    @Transactional(readOnly = true)
+    @Scheduled(fixedDelay = 10_000, initialDelay = 10_000)
+    public void processNextOrder() {
+        log.info("Scheduler processNextOrder is running....");
+        if (FREE.equals(workerState)) {
+            log.info("Starting to seek an order....");
+            orderRepository.findOpenedOrderByDate(OrderStatus.OPEN.name())
+                    .ifPresentOrElse(this::process,
+                            () -> log.info("Oops, perhaps you don't have orders anymore"));
+        }
     }
 
     private void process(Order order) {

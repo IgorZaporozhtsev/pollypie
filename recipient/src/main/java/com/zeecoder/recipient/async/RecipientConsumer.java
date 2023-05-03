@@ -23,9 +23,7 @@ public class RecipientConsumer {
     )
     void listener(String status) throws JsonProcessingException {
         var workerState = objectMapper.readValue(status, WorkerState.class);
-        if (workerState.equals(WorkerState.FREE)) {
-            log.info("Recipient service got Kitchen status is FREE");
-            recipientService.provideNextOrder();
-        }
+        log.info("Recipient service got Kitchen status is {}", status);
+        recipientService.provideNextOrder(workerState);
     }
 }
