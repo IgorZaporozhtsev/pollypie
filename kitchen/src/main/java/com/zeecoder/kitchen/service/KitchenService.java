@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.TimeUnit;
-
 import static com.zeecoder.common.dto.WorkerState.BUSY;
 import static com.zeecoder.common.dto.WorkerState.FREE;
 
@@ -30,7 +28,7 @@ public class KitchenService {
         String cocktail = findCocktail("Margarita");
         doShake(cocktail);
 
-        TimeUnit.MILLISECONDS.sleep(10_000); //so some work
+       // TimeUnit.MILLISECONDS.sleep(2000); //so some work
 
         executeKitchenProcess(new TriggerRequest(FREE));
     }

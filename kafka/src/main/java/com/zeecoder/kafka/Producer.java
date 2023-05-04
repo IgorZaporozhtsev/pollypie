@@ -16,12 +16,12 @@ public class Producer<T> {
 
     public void sendMessage(String topic, UUID id, T event) {
         kafkaTemplate.send(topic, String.valueOf(id), event);
-        log.info("The event was sent to {} topic", event.getClass().getSimpleName(), topic);
+        log.info("The event was sent to {} topic {}", event.getClass().getSimpleName(), topic);
     }
 
     public void sendMessage(String topic, T event) {
         kafkaTemplate.send(topic, event);
-        log.info("The event was sent to {} topic", event.getClass().getSimpleName(), topic);
+        log.info("The event was sent to {} topic {}", event.getClass().getSimpleName(), topic);
     }
 
 }

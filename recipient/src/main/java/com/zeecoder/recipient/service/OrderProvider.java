@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -28,7 +29,8 @@ public class OrderProvider {
         this.workerState = workerState;
     }
 
-    @Scheduled(fixedDelay = 20_000)
+    @Scheduled(fixedDelay = 1000)
+    @Transactional
     public void processNextOrder() {
         log.info("Scheduler processNextOrder is running....");
         if (FREE.equals(workerState)) {
