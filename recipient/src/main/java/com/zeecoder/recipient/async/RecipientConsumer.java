@@ -1,9 +1,7 @@
 package com.zeecoder.recipient.async;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zeecoder.common.dto.WorkerState;
-import com.zeecoder.recipient.service.RecipientService;
+import com.zeecoder.recipient.service.OrderProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -15,16 +13,14 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class RecipientConsumer {
 
-    public final RecipientService recipientService;
-    private final ObjectMapper objectMapper;
+    public final OrderProvider orderProvider;
 
     @KafkaListener(
             topics = "kitchen",
             groupId = "kitchen-group", autoStartup = "true"
     )
-    void recipientListener(@Payload WorkerState workerState) throws JsonProcessingException {
-        //var workerState = objectMapper.readValue(status, WorkerState.class);
+    void recipientListener(@Payload WorkerState workerState) {
         log.info("Recipient service got Kitchen status is {}", workerState);
-        recipientService.provideNextOrder(workerState);
+        orderProvider.provide(workerState);
     }
 }

@@ -3,7 +3,7 @@ package com.zeecoder.recipient.controller;
 import com.zeecoder.recipient.dto.MenuDetailsResponse;
 import com.zeecoder.recipient.dto.MenuRequest;
 import com.zeecoder.recipient.dto.OrderDetailsResponse;
-import com.zeecoder.recipient.service.RecipientService;
+import com.zeecoder.recipient.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1/client-order")
 public class RecipientController {
 
-    private final RecipientService service;
+    private final OrderService service;
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)

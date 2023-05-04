@@ -8,7 +8,7 @@ import com.zeecoder.recipient.domain.Product;
 import com.zeecoder.recipient.dto.Menu;
 import com.zeecoder.recipient.dto.MenuDetailsResponse;
 import com.zeecoder.recipient.dto.MenuRequest;
-import com.zeecoder.recipient.service.RecipientService;
+import com.zeecoder.recipient.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -44,7 +44,7 @@ class RecipientControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
     @MockBean
-    private RecipientService service;
+    private OrderService service;
 
     private UUID orderId;
     private Order orderNumber40;
