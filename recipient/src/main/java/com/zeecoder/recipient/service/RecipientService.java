@@ -93,8 +93,8 @@ public class RecipientService {
         this.workerState = workerState;
     }
 
-    @Transactional(readOnly = true)
-    @Scheduled(fixedDelay = 10_000, initialDelay = 10_000)
+    @Transactional
+    @Scheduled(fixedDelay = 20_000)
     public void processNextOrder() {
         log.info("Scheduler processNextOrder is running....");
         if (FREE.equals(workerState)) {
@@ -105,7 +105,7 @@ public class RecipientService {
         }
     }
 
-    private void process(Order order) {
+    public void process(Order order) {
         order.setStatus(OrderStatus.IN_PROGRESS);
 
         var orderPadDto = OrderPadDto.builder()
@@ -113,7 +113,7 @@ public class RecipientService {
                 .wishes(List.of("Margarita"))
                 .build();
 
-        producer.sendMessage("recipient", assembleOrderEvent(orderPadDto));
+        producer.sendMessage("recipient", order.getId(), assembleOrderEvent(orderPadDto));
     }
 
     private OrderEvent assembleOrderEvent(OrderPadDto orderPadDto) {

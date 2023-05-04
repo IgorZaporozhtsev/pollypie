@@ -7,6 +7,7 @@ import com.zeecoder.recipient.service.RecipientService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -21,9 +22,9 @@ public class RecipientConsumer {
             topics = "kitchen",
             groupId = "kitchen-group", autoStartup = "true"
     )
-    void listener(String status) throws JsonProcessingException {
-        var workerState = objectMapper.readValue(status, WorkerState.class);
-        log.info("Recipient service got Kitchen status is {}", status);
+    void recipientListener(@Payload WorkerState workerState) throws JsonProcessingException {
+        //var workerState = objectMapper.readValue(status, WorkerState.class);
+        log.info("Recipient service got Kitchen status is {}", workerState);
         recipientService.provideNextOrder(workerState);
     }
 }

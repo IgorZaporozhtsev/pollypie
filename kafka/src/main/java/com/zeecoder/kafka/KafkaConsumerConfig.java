@@ -32,17 +32,17 @@ public class KafkaConsumerConfig {
     @Bean
     public ConsumerFactory<String, Object> consumerFactory() {
         JsonDeserializer<Object> jsonDeserializer = new JsonDeserializer<>();
-        jsonDeserializer.addTrustedPackages("com.zeecoder.domains");
+        jsonDeserializer.addTrustedPackages("com.zeecoder.domains", "com.zeecoder.common.dto");
 
-//        return new DefaultKafkaConsumerFactory<>(consumerConfig(),
-//                new StringDeserializer(),
-//                jsonDeserializer);
+        return new DefaultKafkaConsumerFactory<>(consumerConfig(),
+                new StringDeserializer(),
+                jsonDeserializer);
 
-        return new DefaultKafkaConsumerFactory<>(consumerConfig());
+        //return new DefaultKafkaConsumerFactory<>(consumerConfig());
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Object>> factory(
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Object>> kafkaListenerContainerFactory(
             ConsumerFactory<String, Object> consumerFactory
     ) {
         ConcurrentKafkaListenerContainerFactory<String, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
