@@ -27,7 +27,7 @@ public class RecipientConsumer {
             @Header(value = KafkaHeaders.OFFSET, required = false) final long offset,
             @Header(value = KafkaHeaders.RECEIVED_KEY, required = false) final String receivedKey
     ) {
-        log.info("{} received partition-offset: {}-{} receivedKey: {}",
+        log.info("{} received partition: {} offset: {} receivedKey: {}",
                 this.getClass().getSimpleName(), partition, offset, receivedKey);
         orderProvider.provide(workerState);
     }

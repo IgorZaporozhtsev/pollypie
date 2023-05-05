@@ -28,8 +28,7 @@ public class KitchenConsumer {
             @Header(value = KafkaHeaders.OFFSET, required = false) final long offset,
             @Header(value = KafkaHeaders.RECEIVED_KEY, required = false) final String receivedKey
     ) throws InterruptedException {
-
-        log.info("{} received partition-offset: {}-{} receivedKey: {}",
+        log.info("{} received partition: {} offset: {} receivedKey: {}",
                 this.getClass().getSimpleName(), partition, offset, receivedKey);
         kitchenService.createItem(orderEvent.itemDto());
 
