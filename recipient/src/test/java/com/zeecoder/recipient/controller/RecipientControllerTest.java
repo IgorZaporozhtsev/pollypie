@@ -8,6 +8,7 @@ import com.zeecoder.recipient.domain.Product;
 import com.zeecoder.recipient.dto.Menu;
 import com.zeecoder.recipient.dto.MenuDetailsResponse;
 import com.zeecoder.recipient.dto.MenuRequest;
+import com.zeecoder.recipient.security.JWTService;
 import com.zeecoder.recipient.service.OrderService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,8 @@ class RecipientControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private JWTService jwtService; //need for satisfy dependency
     @Autowired
     private ObjectMapper objectMapper;
     @MockBean

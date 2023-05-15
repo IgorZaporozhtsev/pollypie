@@ -8,12 +8,18 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.24/13a394eed5c4f9efb2a6d956e2086f1d81e857d9/lombok-1.18.24.jar" />
         </processorPath>
+        <module name="pollypie.delivery.test" />
+        <module name="pollypie.kitchen.test" />
+        <module name="pollypie.common.test" />
+        <module name="ihor.dev.IdeaProjects.pollypie.common.main" />
+        <module name="pollypie.kafka.test" />
         <module name="IdeaProjects.pollypie.kafka.main" />
+        <module name="pollypie.recipient.test" />
         <module name="pollypie.main" />
         <module name="pollypie.delivery.main" />
         <module name="pollypie.kitchen.main" />
         <module name="IdeaProjects.pollypie.recipient.main" />
-        <module name="ihor.dev.IdeaProjects.pollypie.common.main" />
+        <module name="pollypie.test" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17" />
