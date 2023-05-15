@@ -1,4 +1,4 @@
-package com.zeecoder.recipient.security;
+package com.zeecoder.recipient.security.dto;
 
 import lombok.Builder;
 

@@ -1,10 +1,10 @@
 package com.zeecoder.recipient.security.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zeecoder.recipient.security.AuthenticationRequest;
-import com.zeecoder.recipient.security.AuthenticationResponse;
 import com.zeecoder.recipient.security.AuthenticationService;
-import com.zeecoder.recipient.security.RegisterRequest;
+import com.zeecoder.recipient.security.dto.AuthenticationRequest;
+import com.zeecoder.recipient.security.dto.AuthenticationResponse;
+import com.zeecoder.recipient.security.dto.RegisterRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -16,12 +16,19 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
+    open-in-view: false
   kafka:
     bootstrap-servers: localhost:9092
   liquibase:
     change-log: db/changelog/db.changelog-master.yml
 server:
   port: 8080
+# expirationHours: 10080 (1-week)
+jwt:
+  expirationHours: 10080
 logging:
   level:
-    root: info
+    root: warn
+    com.zeecoder.recipient: info
+    org.springframework: info
+    org.apache.kafka: info

@@ -7,11 +7,10 @@ import com.zeecoder.kitchen.dto.TriggerRequest;
 import com.zeecoder.kitchen.webclient.TheCocktailDbClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.concurrent.TimeUnit;
-
+import static com.zeecoder.common.dto.WorkerState.BUSY;
 import static com.zeecoder.common.dto.WorkerState.FREE;
 
 @Slf4j
@@ -22,12 +21,14 @@ public class KitchenService {
     private final Producer<WorkerState> event;
     private final TheCocktailDbClient cocktailDbClient;
 
-    @Transactional
+    @Async
     public void createItem(OrderPadDto itemDto) throws InterruptedException {
+        executeKitchenProcess(new TriggerRequest(BUSY)); //should make delay for Scheduler
+
         String cocktail = findCocktail("Margarita");
         doShake(cocktail);
 
-        TimeUnit.SECONDS.sleep(10);
+       // TimeUnit.MILLISECONDS.sleep(2000); //so some work
 
         executeKitchenProcess(new TriggerRequest(FREE));
     }
@@ -41,9 +42,7 @@ public class KitchenService {
     }
 
     public void executeKitchenProcess(TriggerRequest request) {
-        if (request.state().equals(FREE)) {
-            event.sendMessage("kitchen", FREE);
-            log.info("Kitchen status is FREE, provide next Order");
-        }
+        log.info("Kitchen status is {}", request.state());
+        event.sendMessage("kitchen", request.state());
     }
 }

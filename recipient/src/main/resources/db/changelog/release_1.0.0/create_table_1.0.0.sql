@@ -40,6 +40,16 @@ create table client_order
     order_date   timestamp not null default current_date
 );
 
+--changeset Ihor:1682410420
+CREATE TABLE order_definitions
+(
+    id        uuid references client_order (id),
+    item_name VARCHAR,
+    quantity  INTEGER,
+    PRIMARY KEY (id, item_name)
+);
+
+
 --changeset Ihor:1680873553
 create table item
 (
@@ -69,7 +79,8 @@ create table token
     revoked    boolean not null,
     token      varchar(255),
     token_type varchar(255),
-    user_id    integer,
+    user_id    uuid
+        constraint toke_to_user references internal_user (id),
     primary key (id)
 );
 
@@ -79,4 +90,3 @@ create table authorities
     user_id     uuid,
     authorities bytea
 );
-

@@ -12,7 +12,7 @@ public class DeliveryConsumer {
 
     @KafkaListener(
             topics = "delivery",
-            groupId = "groupId"
+            groupId = "delivery-group"
     )
     void listener(String data) {
         deliveryService.apply(data);

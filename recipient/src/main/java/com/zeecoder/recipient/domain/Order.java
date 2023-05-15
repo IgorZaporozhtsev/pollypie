@@ -3,15 +3,14 @@ package com.zeecoder.recipient.domain;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
@@ -35,16 +34,26 @@ public class Order implements Serializable {
 
     BigDecimal totalPrice;
 
+    @Builder.Default
     LocalDateTime orderDate = LocalDateTime.now();
 
+    @Builder.Default
     @Enumerated(value = EnumType.STRING)
-    OrderStatus status;
+    OrderStatus status = OrderStatus.OPEN;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @MapKeyColumn(name = "item_name")
+    @Column(name = "quantity")
+    @CollectionTable(name = "order_definitions", joinColumns = @JoinColumn(name = "id"))
+    Map<String, Integer> orderDefinitions = new HashMap<>();
+
+    @Builder.Default
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> items = new ArrayList<>();
+    List<Item> items = new ArrayList<>();
 
     @Embedded
     @Valid
+    @NotNull
     ContactDetails contactDetails;
 
     public void addOrderItems(List<Item> items) {
