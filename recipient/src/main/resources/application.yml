@@ -2,7 +2,7 @@ spring:
   application:
     name: recipient
   datasource:
-    url: jdbc:postgresql://localhost:5432/recipient
+    url: jdbc:postgresql://postgres:5432/recipient
     username: zeecoder
     password: password
     driver-class-name: org.postgresql.Driver

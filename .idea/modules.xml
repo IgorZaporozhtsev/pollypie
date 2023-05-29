@@ -10,12 +10,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/dev.IdeaProjects.pollypie.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/dev.IdeaProjects.pollypie.common.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/ihor.dev.IdeaProjects.pollypie.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/ihor.dev.IdeaProjects.pollypie.common.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/pollypie.common.main.iml" filepath="$PROJECT_DIR$/.idea/modules/common/pollypie.common.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/delivery/pollypie.delivery.main.iml" filepath="$PROJECT_DIR$/.idea/modules/delivery/pollypie.delivery.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/kafka/pollypie.kafka.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kafka/pollypie.kafka.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kitchen/pollypie.kitchen.main.iml" filepath="$PROJECT_DIR$/.idea/modules/kitchen/pollypie.kitchen.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kitchen/pollypie.kitchen.test.iml" filepath="$PROJECT_DIR$/.idea/modules/kitchen/pollypie.kitchen.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/recipient/pollypie.recipient.main.iml" filepath="$PROJECT_DIR$/.idea/modules/recipient/pollypie.recipient.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/recipient/pollypie.recipient.test.iml" filepath="$PROJECT_DIR$/.idea/modules/recipient/pollypie.recipient.test.iml" />
     </modules>
   </component>
 </project>

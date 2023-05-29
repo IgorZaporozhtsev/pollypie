@@ -5,6 +5,9 @@ plugins {
 }
 
 jib.to.image = "booratina/${project.name}:${version}"
+jib.to.auth.username = property('zeecoderUsername')
+jib.to.auth.password = property('zeecoderPassword')
+
 
 dependencies {
 
