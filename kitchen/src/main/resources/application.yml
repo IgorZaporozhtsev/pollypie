@@ -1,6 +1,22 @@
 spring:
   application:
     name: kitchen
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kitchen
+    username: zeecoder
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+    open-in-view: false
   kafka:
     bootstrap-servers: localhost:9092
 server:

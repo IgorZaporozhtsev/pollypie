@@ -5,7 +5,7 @@ import org.springframework.web.service.annotation.GetExchange;
 import org.springframework.web.service.annotation.HttpExchange;
 
 @HttpExchange("/api/json/v1/1/search.php")
-public interface TheCocktailDbClient {
+public interface DataRecordsClient {
     @GetExchange
-    String getCocktail(@RequestParam String s);
+    String getDataRecords(@RequestParam(name = "f") char letter);
 }
