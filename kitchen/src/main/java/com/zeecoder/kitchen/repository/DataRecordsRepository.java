@@ -8,4 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface DataRecordsRepository extends JpaRepository<DataRecord, UUID> {
+
+    boolean existsByName(String name);
 }
