@@ -6,6 +6,7 @@ plugins {
 jib.to.image = "booratina/${project.name}:${version}"
 
 dependencies {
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-60:3.4.2'
     implementation project(path: ':kafka') //Could not up Application context for test if compileOnly
     implementation project(path: ':common')
 }

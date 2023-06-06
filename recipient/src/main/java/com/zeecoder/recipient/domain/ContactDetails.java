@@ -13,9 +13,9 @@ import lombok.*;
 @NoArgsConstructor
 public class ContactDetails {
     @NotNull
-    @Size(min = 3, max = 10)
+    @Size(min = 2, max = 10)
     private String firstName;
-    @Size(min = 3, max = 10)
+    @Size(min = 2, max = 10)
     private String lastName;
     @Pattern(regexp = "[\\d\\s()+-]+")
     @NotNull

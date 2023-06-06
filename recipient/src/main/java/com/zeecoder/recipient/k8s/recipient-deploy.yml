@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recipient-app-deploy
+  labels:
+    app: recipient-app-deploy
+    name: pollypie-app-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recipient-app-pod
+      name: pollypie-app
+  template:
+    metadata:
+      name: recipient-app-pod
+      labels:
+        app: recipient-app-pod
+        name: pollypie-app
+    spec:
+      containers:
+        - name: recipient-app
+          image: booratina/recipient:0.0.1.SNAPSHOT
+          ports:
+            - containerPort: 80
+        

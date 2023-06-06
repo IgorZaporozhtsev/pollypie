@@ -26,7 +26,7 @@ public class KitchenConsumer {
             @Payload OrderEvent orderEvent,
             @Header(value = KafkaHeaders.RECEIVED_PARTITION, required = false) final int partition,
             @Header(value = KafkaHeaders.OFFSET, required = false) final long offset,
-            @Header(value = KafkaHeaders.RECEIVED_KEY) final String receivedKey
+            @Header(value = KafkaHeaders.RECEIVED_KEY, required = false) final String receivedKey
     ) throws InterruptedException {
         log.info("{} received partition: {} offset: {} receivedKey: {}",
                 this.getClass().getSimpleName(), partition, offset, receivedKey);
