@@ -24,6 +24,9 @@ allprojects {
     }
 
     dependencies {
+        implementation 'net.javacrumbs.shedlock:shedlock-spring:5.3.0'
+        implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:5.3.0'
+
         implementation 'org.postgresql:postgresql:42.5.1'
         implementation 'org.springframework:spring-webflux:6.0.7'
 
