@@ -12,6 +12,8 @@ public class DataRecordsService {
     private final DataRecordsRepository repository;
 
     public void saveDataRecord(DataRecord dataRecord) {
-        repository.save(dataRecord);
+        if (!repository.existsByName(dataRecord.getName())) {
+            repository.save(dataRecord);
+        }
     }
 }
