@@ -18,7 +18,7 @@ import java.util.UUID;
 public class DataRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID drId;
+    private UUID id;
     private String name;
 
     @Type(JsonType.class)

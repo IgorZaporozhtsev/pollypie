@@ -6,8 +6,13 @@ plugins {
 jib.to.image = "booratina/${project.name}:${version}"
 
 dependencies {
+
+    implementation 'org.liquibase:liquibase-core:4.20.0'
     implementation 'io.hypersistence:hypersistence-utils-hibernate-60:3.4.2'
     implementation project(path: ':kafka') //Could not up Application context for test if compileOnly
     implementation project(path: ':common')
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.0.4'
+
 }
 
